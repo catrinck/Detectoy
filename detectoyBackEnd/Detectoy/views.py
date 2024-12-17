@@ -15,7 +15,7 @@ def gerentes(request):
         return Response(serializer.data)
 
     elif request.method == 'POST':
-        serializer = GerenteSerializer(data=request.data)
+        serializer = CriarGerenteSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(status=status.HTTP_201_CREATED)
@@ -52,7 +52,7 @@ def usuarios(request):
         return Response(serializer.data)
 
     elif request.method == 'POST':
-        serializer = UsuarioSerializer(data=request.data)
+        serializer = CriarUsuarioSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(status=status.HTTP_201_CREATED)
@@ -60,15 +60,20 @@ def usuarios(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-@api_view(['PUT', 'DELETE'])
+@api_view(['GET', 'PUT', 'DELETE'])
 def usuarios_modificar(request, cpf):
     try:
         usuario = Usuario.objects.get(pk=cpf)
     except Usuario.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
+    if request.method == 'GET':
+        data = Usuario.objects.filter(pk=cpf)
 
-    if request.method == 'PUT':
+        serializer = UsuarioSerializer(data, context={'request': request}, many=True)
+
+        return Response(serializer.data)
+    elif request.method == 'PUT':
         serializer = UsuarioSerializer(usuario, data=request.data,context={'request': request})
         if serializer.is_valid():
             serializer.save()
