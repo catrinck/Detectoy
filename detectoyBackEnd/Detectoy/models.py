@@ -3,7 +3,7 @@ from django.db import models
 
 class Gerente(models.Model):
     nome = models.CharField(max_length=100)
-    cpf = models.BigIntegerField(primary_key=True)
+    cpf = models.CharField(max_length=11, primary_key=True)
     email = models.EmailField(max_length=100)
     senha = models.CharField(max_length=100)
 
@@ -16,7 +16,7 @@ class Gerente(models.Model):
 # O mesmo para relatorios
 class Usuario(models.Model):
     nome = models.CharField(max_length=100)
-    cpf = models.BigIntegerField(primary_key=True)
+    cpf = models.CharField(max_length=11, primary_key=True)
     email = models.EmailField(max_length=100)
     senha = models.CharField(max_length=100)
     cameras = models.BooleanField(default=False)
