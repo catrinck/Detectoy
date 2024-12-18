@@ -16,7 +16,12 @@ No final o resultado deve ser algo semelhante a isso:\
 Execute o seguinte comando no terminal (diretorio do projeto):\
 ```pip install -r requirements.txt```
 
-### 1.3. Rodando o servidor
+### 1.3. Configurando o banco de dados
+
+Execute o seguinte comando no terminal (diretorio do projeto):\
+```python db_setup.py```
+
+### 1.4. Rodando o servidor
 
 Execute o seguinte comando no terminal (diretorio do projeto):\
 ```python manage.py runserver```
