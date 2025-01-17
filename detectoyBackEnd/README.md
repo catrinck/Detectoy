@@ -18,6 +18,9 @@ Execute o seguinte comando no terminal (diretorio do projeto):\
 
 ### 1.3. Configurando o banco de dados
 
+Para configurar o banco de dados, veririfque o login do postgres em ```db_setup.py```.\
+Os valores padrões de login e senha são "postgres" e "12345678", respectivamente.\
+Altere para os valores que você definiu quando instalou o postgres.\
 Execute o seguinte comando no terminal (diretorio do projeto):\
 ```python db_setup.py```
 
