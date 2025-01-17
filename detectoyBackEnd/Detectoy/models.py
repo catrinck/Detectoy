@@ -1,3 +1,4 @@
+import bcrypt
 from django.db import models
 
 
@@ -9,6 +10,10 @@ class Gerente(models.Model):
 
     def __str__(self):
         return self.nome
+
+    def save(self, *args, **kwargs):
+        self.senha = bcrypt.hashpw(bytes(self.senha, 'utf-8'), bcrypt.gensalt())
+        super(Gerente, self).save(*args, **kwargs)
 
 
 # Os campos cameras e relatorios sao referentes as permissoes do usuario
@@ -24,3 +29,7 @@ class Usuario(models.Model):
 
     def __str__(self):
         return self.nome
+
+    def save(self, *args, **kwargs):
+        self.senha = bcrypt.hashpw(bytes(self.senha, 'utf-8'), bcrypt.gensalt())
+        super(Usuario, self).save(*args, **kwargs)
