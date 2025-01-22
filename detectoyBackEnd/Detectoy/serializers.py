@@ -13,6 +13,10 @@ class GerenteSerializer(serializers.ModelSerializer):
         model = Gerente
         exclude = ['senha']
 
+class LoginGerenteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Gerente
+        fields = ['email', 'senha']
 
 class CriarUsuarioSerializer(serializers.ModelSerializer):
     class Meta:

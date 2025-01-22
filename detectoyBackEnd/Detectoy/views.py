@@ -1,9 +1,10 @@
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
-
 from .models import Gerente, Usuario
 from .serializers import *
+
+import bcrypt
 
 @api_view(['GET', 'POST'])
 def gerentes(request):
@@ -29,7 +30,6 @@ def gerentes_modificar(request, cpf):
     except Gerente.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
-
     if request.method == 'PUT':
         serializer = GerenteSerializer(gerente, data=request.data,context={'request': request})
         if serializer.is_valid():
@@ -41,6 +41,16 @@ def gerentes_modificar(request, cpf):
         gerente.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+@api_view(['POST'])
+def gerente_login(request):
+    if request.method == 'POST':
+        gerente = Gerente.objects.get(pk=request.data['cpf'])
+        print(request.data['senha'], bytes(request.data['senha'], 'utf-8'))
+        print(gerente.senha, bytes(gerente.senha[2:-1], 'utf-8'))
+        auth = bcrypt.checkpw(bytes(request.data['senha'], 'utf-8'), bytes(gerente.senha[2:-1], 'utf-8'))
+        if auth:
+            return Response(status=status.HTTP_200_OK)
+        return Response(status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET', 'POST'])
 def usuarios(request):
@@ -73,6 +83,7 @@ def usuarios_modificar(request, cpf):
         serializer = UsuarioSerializer(data, context={'request': request}, many=True)
 
         return Response(serializer.data)
+
     elif request.method == 'PUT':
         serializer = UsuarioSerializer(usuario, data=request.data,context={'request': request})
         if serializer.is_valid():
@@ -83,3 +94,14 @@ def usuarios_modificar(request, cpf):
     elif request.method == 'DELETE':
         usuario.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+@api_view(['POST'])
+def usuario_login(request):
+    if request.method == 'POST':
+        usuario = Usuario.objects.get(pk=request.data['cpf'])
+        print(request.data['senha'], bytes(request.data['senha'], 'utf-8'))
+        print(usuario.senha, bytes(usuario.senha[2:-1], 'utf-8'))
+        auth = bcrypt.checkpw(bytes(request.data['senha'], 'utf-8'), bytes(usuario.senha[2:-1], 'utf-8'))
+        if auth:
+            return Response(status=status.HTTP_200_OK)
+        return Response(status=status.HTTP_400_BAD_REQUEST)

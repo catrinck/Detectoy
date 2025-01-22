@@ -24,4 +24,6 @@ urlpatterns = [
     path('api/gerentes/<int:cpf>', views.gerentes_modificar),
     path('api/usuarios/', views.usuarios),
     path('api/usuarios/<int:cpf>', views.usuarios_modificar),
+    path('api/login/gerentes/', views.gerente_login),
+    path('api/login/usuarios/', views.usuario_login),
 ]
