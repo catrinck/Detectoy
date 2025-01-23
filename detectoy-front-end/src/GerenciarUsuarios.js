@@ -45,7 +45,7 @@ const GerenciarUsuarios = () => {
                     <div className="min-w-635px">
                         {usuarios.map((usuario, index) => (
                             <div
-                                className="grid items-start bg-gray-50 p-6 rounded-lg shadow-lg mb-3 grid-cols-3 grid-rows3 hover:bg-white hover:scale-105 transition duration-300 ease-in-out"
+                                className="grid items-start bg-gray-50 p-6 rounded-lg shadow-lg mb-3 grid-cols-3 grid-rows-4 hover:bg-white hover:scale-105 transition duration-300 ease-in-out"
                                 key={index}>
                                 <div className="text-2xl font-bold mb-0 col-span-2 pr-30">
                                     {usuario.nome}
@@ -64,17 +64,24 @@ const GerenciarUsuarios = () => {
                                         Excluir
                                     </div>
                                 </div>
-                                <div className="text-xl mb-1 col-span-2">
+                                <div className="text-xl mb-1 col-span-3">
                                     <b>CPF: </b>{usuario.cpf}
                                 </div>
-                                <div className="text-xl mb-1 col-span-1">
-                                    <b>Acesso às câmeras: </b>{usuario.cameras ? ("Sim") : ("Não")}
-                                </div>
-                                <div className="text-xl mb-1 col-span-2">
+
+                                <div className="text-xl mb-1 col-span-3">
                                     <b>E-mail: </b>{usuario.email}
                                 </div>
-                                <div className="text-xl mb-1 col-span-1">
-                                    <b>Acesso aos relatorios: </b>{usuario.relatorios ? ("Sim") : ("Não")}
+                                <div className="text-xl mb-1 col-span-1 flex">
+                                    <b>Acesso aos logs: </b>{usuario.log ? (<div className="ms-2 bg-green-400 flex rounded-lg w-8 justify-center">&#x2713;</div>) : (
+                                    <div className="ms-2 bg-red-500 flex rounded-lg w-8 justify-center">X</div>)}
+                                </div>
+                                <div className="text-xl mb-1 col-span-1 flex">
+                                    <b>Acesso às câmeras: </b>{usuario.cameras ? (<div className="ms-2 bg-green-400 flex rounded-lg w-8 justify-center">&#x2713;</div>) : (
+                                    <div className="ms-2 bg-red-500 flex rounded-lg w-8 justify-center">X</div>)}
+                                </div>
+                                <div className="text-xl mb-1 col-span-1 flex">
+                                    <b>Acesso aos relatorios: </b>{usuario.relatorios ? (<div className="ms-2 bg-green-400 flex rounded-lg w-8 justify-center">&#x2713;</div>) : (
+                                    <div className="ms-2 bg-red-500 flex rounded-lg w-8 justify-center">X</div>)}
                                 </div>
                             </div>
                         ))
