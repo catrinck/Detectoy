@@ -12,7 +12,7 @@ const GerenciarUsuarios = () => {
                 const response = await axios.get("http://127.0.0.1:8000/api/usuarios/");
                 setUsuarios(response.data);
             } catch (error) {
-                console.error("Erro ao buscar produtos:", error);
+                console.error("Erro ao buscar usuários:", error);
             }
         };
         fetchProducts();
@@ -27,12 +27,12 @@ const GerenciarUsuarios = () => {
 
     const deleteProduct = async (usuario_cpf) => {
         try {
-            await axios.delete(`http://127.0.0.1:8000/api/products/${usuario_cpf}`);
-            alert(`Produto deletado com sucesso!`);
+            await axios.delete(`http://127.0.0.1:8000/api/usuarios/${usuario_cpf}`);
+            alert(`Usuário deletado com sucesso!`);
             setUsuarios(usuarios.filter((usuario) => usuario.cpf !== usuario_cpf));
         } catch (error) {
-            console.error("Erro ao deletar produto:", error);
-            alert("Falha ao deletar produto. Tente novamente.");
+            console.error("Erro ao deletar usuário:", error);
+            alert("Falha ao deletar usuário. Tente novamente.");
         }
     };
 
