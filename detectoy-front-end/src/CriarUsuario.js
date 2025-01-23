@@ -9,6 +9,7 @@ const CriarUsuario = () => {
         nome: "",
         email: "",
         senha: "",
+        log: false,
         cameras: false,
         relatorios: false,
 
@@ -97,7 +98,17 @@ const CriarUsuario = () => {
                             />
                         </div>
                         <div>
-                            <label className="block text-sm font-medium">Terá acesso aos comandos dos relatórios?</label>
+                            <label className="block text-sm font-medium">Terá acesso aos logs?</label>
+                            <input
+                                type="checkbox"
+                                name="log"
+                                checked={usuario.log}
+                                onChange={handleChange}
+                            />
+                        </div>
+                        <div>
+                            <label className="block text-sm font-medium">Terá acesso aos comandos dos
+                                relatórios?</label>
                             <input
                                 type="checkbox"
                                 name="relatorios"

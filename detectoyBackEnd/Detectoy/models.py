@@ -24,6 +24,7 @@ class Usuario(models.Model):
     cpf = models.CharField(max_length=11, primary_key=True)
     email = models.EmailField(max_length=100)
     senha = models.CharField(max_length=100)
+    log = models.BooleanField(default=False)
     cameras = models.BooleanField(default=False)
     relatorios = models.BooleanField(default=False)
 

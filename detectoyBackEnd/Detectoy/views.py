@@ -45,8 +45,6 @@ def gerentes_modificar(request, cpf):
 def gerente_login(request):
     if request.method == 'POST':
         gerente = Gerente.objects.get(pk=request.data['cpf'])
-        print(request.data['senha'], bytes(request.data['senha'], 'utf-8'))
-        print(gerente.senha, bytes(gerente.senha[2:-1], 'utf-8'))
         auth = bcrypt.checkpw(bytes(request.data['senha'], 'utf-8'), bytes(gerente.senha[2:-1], 'utf-8'))
         if auth:
             return Response(status=status.HTTP_200_OK)
@@ -99,8 +97,6 @@ def usuarios_modificar(request, cpf):
 def usuario_login(request):
     if request.method == 'POST':
         usuario = Usuario.objects.get(pk=request.data['cpf'])
-        print(request.data['senha'], bytes(request.data['senha'], 'utf-8'))
-        print(usuario.senha, bytes(usuario.senha[2:-1], 'utf-8'))
         auth = bcrypt.checkpw(bytes(request.data['senha'], 'utf-8'), bytes(usuario.senha[2:-1], 'utf-8'))
         if auth:
             return Response(status=status.HTTP_200_OK)

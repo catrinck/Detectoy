@@ -11,6 +11,7 @@ const EditarUsuario = () => {
         nome: "",
         email: "",
         senha: "",
+        log: false,
         cameras: false,
         relatorios: false,
 
@@ -95,6 +96,15 @@ const EditarUsuario = () => {
                             />
                         </div>
                         <div>
+                            <label className="block text-sm font-medium">Terá acesso aos logs?</label>
+                            <input
+                                type="checkbox"
+                                name="log"
+                                checked={usuario.log}
+                                onChange={handleChange}
+                            />
+                        </div>
+                        <div>
                             <label className="block text-sm font-medium">Terá acesso aos comandos das câmeras?</label>
                             <input
                                 type="checkbox"
@@ -104,7 +114,8 @@ const EditarUsuario = () => {
                             />
                         </div>
                         <div>
-                            <label className="block text-sm font-medium">Terá acesso aos comandos dos relatórios?</label>
+                            <label className="block text-sm font-medium">Terá acesso aos comandos dos
+                                relatórios?</label>
                             <input
                                 type="checkbox"
                                 name="relatorios"
