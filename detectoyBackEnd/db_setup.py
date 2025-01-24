@@ -5,6 +5,7 @@ conn.autocommit = True
 
 with conn:
     with conn.cursor() as curs:
+        curs.execute('''DROP DATABASE IF EXISTS detectoy;''')
         curs.execute('''CREATE DATABASE detectoy
                         WITH
                         OWNER = postgres
@@ -17,6 +18,7 @@ with conn:
                         IS_TEMPLATE = False;
                     '''
                      )
+        curs.execute('''DROP ROLE IF EXISTS detectoy;''')
         curs.execute('''CREATE ROLE detectoy WITH
                         LOGIN
                         NOSUPERUSER
