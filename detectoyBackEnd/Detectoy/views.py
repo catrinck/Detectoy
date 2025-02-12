@@ -1,7 +1,7 @@
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
-from .models import Gerente, Usuario
+from .models import Gerente, Funcionario
 from .serializers import *
 
 import bcrypt
@@ -51,16 +51,16 @@ def gerente_login(request):
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET', 'POST'])
-def usuarios(request):
+def funcionarios(request):
     if request.method == 'GET':
-        data = Usuario.objects.all()
+        data = Funcionario.objects.all()
 
-        serializer = UsuarioSerializer(data, context={'request': request}, many=True)
+        serializer = FuncionarioSerializer(data, context={'request': request}, many=True)
 
         return Response(serializer.data)
 
     elif request.method == 'POST':
-        serializer = CriarUsuarioSerializer(data=request.data)
+        serializer = CriarFuncionarioSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(status=status.HTTP_201_CREATED)
@@ -69,35 +69,35 @@ def usuarios(request):
 
 
 @api_view(['GET', 'PUT', 'DELETE'])
-def usuarios_modificar(request, cpf):
+def funcionarios_modificar(request, cpf):
     try:
-        usuario = Usuario.objects.get(pk=cpf)
-    except Usuario.DoesNotExist:
+        Funcionario = Funcionario.objects.get(pk=cpf)
+    except Funcionario.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
-        data = Usuario.objects.filter(pk=cpf)
+        data = Funcionario.objects.filter(pk=cpf)
 
-        serializer = UsuarioSerializer(data, context={'request': request}, many=True)
+        serializer = FuncionarioSerializer(data, context={'request': request}, many=True)
 
         return Response(serializer.data)
 
     elif request.method == 'PUT':
-        serializer = UsuarioSerializer(usuario, data=request.data,context={'request': request})
+        serializer = FuncionarioSerializer(Funcionario, data=request.data,context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(status=status.HTTP_204_NO_CONTENT)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     elif request.method == 'DELETE':
-        usuario.delete()
+        Funcionario.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['POST'])
-def usuario_login(request):
+def funcionario_login(request):
     if request.method == 'POST':
-        usuario = Usuario.objects.get(pk=request.data['cpf'])
-        auth = bcrypt.checkpw(bytes(request.data['senha'], 'utf-8'), bytes(usuario.senha[2:-1], 'utf-8'))
+        Funcionario = Funcionario.objects.get(pk=request.data['cpf'])
+        auth = bcrypt.checkpw(bytes(request.data['senha'], 'utf-8'), bytes(Funcionario.senha[2:-1], 'utf-8'))
         if auth:
             return Response(status=status.HTTP_200_OK)
         return Response(status=status.HTTP_400_BAD_REQUEST)

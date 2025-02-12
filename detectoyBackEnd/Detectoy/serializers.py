@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Gerente, Usuario
+from .models import Gerente, Funcionario
 
 
 class CriarGerenteSerializer(serializers.ModelSerializer):
@@ -18,13 +18,13 @@ class LoginGerenteSerializer(serializers.ModelSerializer):
         model = Gerente
         fields = ['email', 'senha']
 
-class CriarUsuarioSerializer(serializers.ModelSerializer):
+class CriarFuncionarioSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Usuario
+        model = Funcionario
         fields = '__all__'
 
 
-class UsuarioSerializer(serializers.ModelSerializer):
+class FuncionarioSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Usuario
+        model = Funcionario
         exclude = ['senha']

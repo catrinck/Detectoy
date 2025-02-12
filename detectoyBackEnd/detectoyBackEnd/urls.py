@@ -22,8 +22,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/gerentes/', views.gerentes),
     path('api/gerentes/<int:cpf>', views.gerentes_modificar),
-    path('api/usuarios/', views.usuarios),
-    path('api/usuarios/<int:cpf>', views.usuarios_modificar),
+    path('api/funcionarios/', views.funcionarios),
+    path('api/funcionarios/<int:cpf>', views.funcionarios_modificar),
     path('api/login/gerentes/', views.gerente_login),
-    path('api/login/usuarios/', views.usuario_login),
+    path('api/login/funcionarios/', views.funcionario_login),
 ]

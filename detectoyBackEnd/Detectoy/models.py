@@ -1,5 +1,6 @@
 import bcrypt
 from django.db import models
+from django.utils import timezone
 
 
 class Gerente(models.Model):
@@ -19,7 +20,7 @@ class Gerente(models.Model):
 # Os campos cameras e relatorios sao referentes as permissoes do usuario
 # Se camera == True entao ele tem acesso aos comandos da camera
 # O mesmo para relatorios
-class Usuario(models.Model):
+class Funcionario(models.Model):
     nome = models.CharField(max_length=100)
     cpf = models.CharField(max_length=11, primary_key=True)
     email = models.EmailField(max_length=100)
@@ -33,4 +34,28 @@ class Usuario(models.Model):
 
     def save(self, *args, **kwargs):
         self.senha = bcrypt.hashpw(bytes(self.senha, 'utf-8'), bcrypt.gensalt())
-        super(Usuario, self).save(*args, **kwargs)
+        super(Funcionario, self).save(*args, **kwargs)
+
+
+class ErroDetectado(models.Model):
+    def image_path(self, filetype=".jpg"):
+        return "images/"+ str(self.tipo) + "/" + str(self.linha) + "/" + self.momento.strftime("%Y-%m-%d-%H-%M-%S-%f") + filetype
+    
+    linhas = {
+        0: "Linha 1",
+        1: "Linha 2",
+        2: "Linha 3"
+    }
+    tipos = {
+        0: "Preta",
+        1: "Branca"
+    }
+
+    momento = models.DateTimeField(default=timezone.now())
+    linha = models.IntegerField(choices=linhas)
+    tipo = models.IntegerField(choices=tipos)
+    imagem = models.FilePathField()
+
+    def save(self, *args, **kwargs):
+        self.imagem = ErroDetectado.image_path(self)
+        super(ErroDetectado, self).save(*args, **kwargs)
