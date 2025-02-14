@@ -48,21 +48,24 @@ def gerar_pdf(funcionario: str, erros: list[dict]):
     pylatex.config.active = pylatex.config.Version1(indent=False)
 
     geometry_options = {"tmargin": "3cm", "lmargin": "3cm", "bmargin": "2cm", "rmargin": "2cm"}
-    file_name = os.path.join(os.path.dirname(__file__), "relatorios", str(len(erros)) + "_" + datetime.now().strftime("%Y-%m-%d-%H-%M-%S-%f"))
+    file_name = str(len(erros)) + "_" + datetime.now().strftime("%Y-%m-%d-%H-%M-%S-%f")
+    file_path = os.path.join(os.path.dirname(__file__), "relatorios", file_name)
     doc = pylatex.Document(file_name, geometry_options=geometry_options)
 
     doc.preamble.append(pylatex.Package('graphicx'))
 
     gerar_informacoes(doc, "Detectoy", "detectoy@detectoy.com.br", "+55 (92) 99999-9999", funcionario)
 
+    doc.append(pylatex.VerticalSpace("0.5cm"))
+    doc.append(pylatex.LineBreak())
+
     for erro in erros:
-        doc.append(pylatex.VerticalSpace("0.5cm"))
-        doc.append(pylatex.LineBreak())
-
         gerar_erro(doc, erro["codigo"], erro["data"], erro["hora"], erro["linha"], erro["tipo"], erro["imagem"])
+        doc.append(pylatex.NewPage())
 
-    doc.generate_tex(filepath=file_name)
-    doc.generate_pdf(filepath=file_name)
+    doc.generate_tex(filepath=file_path)
+    doc.generate_pdf(filepath=file_path)
+    return file_name + ".pdf"
 
 if __name__ == "__main__":
     erro = {
@@ -71,6 +74,6 @@ if __name__ == "__main__":
         "hora": "HH:MM:SS.mmmm",
         "linha": "LINHA",
         "tipo": "TIPO",
-        "imagem": os.path.join(os.path.dirname(__file__), "images/periclao.png")
+        "imagem": os.path.join(os.path.dirname(__file__), "images/erro.jpg")
     }
     gerar_pdf("Fulano de Tal", [erro])

@@ -3,6 +3,7 @@ import os
 from .models import Gerente, Funcionario, ErroDetectado
 from .relatorios import gerar_pdf
 from .serializers import *
+from django.http import FileResponse
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -122,4 +123,7 @@ def relatorio(request):
                 "imagem": os.path.join(os.path.dirname(__file__), "images", err.imagem)
             }
             erros.append(e)
-        gerar_pdf(funcionario=request.data['funcionario'], erros=erros)
+        pdf_name = gerar_pdf(funcionario=request.data['funcionario'], erros=erros)
+        pdf_path = os.path.join(os.path.dirname(__file__), "relatorios", pdf_name)
+        response = FileResponse(open(pdf_path, 'rb'), as_attachment=True, filename=pdf_name)
+        return response
