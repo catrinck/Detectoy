@@ -1,4 +1,7 @@
 import bcrypt
+import os
+
+from django.conf import settings
 from django.db import models
 from django.utils import timezone
 
@@ -38,8 +41,8 @@ class Funcionario(models.Model):
 
 
 class ErroDetectado(models.Model):
-    def image_path(self, filetype=".jpg"):
-        return "images/"+ str(self.tipo) + "/" + str(self.linha) + "/" + self.momento.strftime("%Y-%m-%d-%H-%M-%S-%f") + filetype
+    def image_file_name(self, filetype=".jpg"):
+        return str(self.tipo) + "-" + str(self.linha) + "_" + self.momento.strftime("%Y-%m-%d-%H-%M-%S-%f") + filetype
     
     linhas = {
         0: "Linha 1",
@@ -54,8 +57,11 @@ class ErroDetectado(models.Model):
     momento = models.DateTimeField(default=timezone.now())
     linha = models.IntegerField(choices=linhas)
     tipo = models.IntegerField(choices=tipos)
-    imagem = models.FilePathField()
+    imagem = models.FilePathField(path=os.path.join(os.path.dirname(__file__), "images"))
+
+    def __str__(self):
+        return self.imagem
 
     def save(self, *args, **kwargs):
-        self.imagem = ErroDetectado.image_path(self)
+        self.imagem = ErroDetectado.image_file_name(self)
         super(ErroDetectado, self).save(*args, **kwargs)

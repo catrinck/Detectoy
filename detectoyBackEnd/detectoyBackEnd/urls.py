@@ -26,4 +26,5 @@ urlpatterns = [
     path('api/funcionarios/<int:cpf>', views.funcionarios_modificar),
     path('api/login/gerentes/', views.gerente_login),
     path('api/login/funcionarios/', views.funcionario_login),
+    path('api/relatorio', views.relatorio)
 ]

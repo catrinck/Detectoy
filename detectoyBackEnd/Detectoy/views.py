@@ -1,8 +1,13 @@
-from rest_framework.response import Response
-from rest_framework.decorators import api_view
-from rest_framework import status
-from .models import Gerente, Funcionario
+import os
+
+from .models import Gerente, Funcionario, ErroDetectado
+from .relatorios import gerar_pdf
 from .serializers import *
+from rest_framework import status
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+
+
 
 import bcrypt
 
@@ -101,3 +106,20 @@ def funcionario_login(request):
         if auth:
             return Response(status=status.HTTP_200_OK)
         return Response(status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET'])
+def relatorio(request):
+    if request.method == 'GET':
+        erros = []
+        for erro in request.data['erros']:
+            err = ErroDetectado.objects.get(imagem=erro)
+            e = {
+                "codigo": err.imagem[:-4],
+                "data": err.momento.strftime("%Y/%m/%d"),
+                "hora": err.momento.strftime("%H:%M:%S.%f"),
+                "linha": ErroDetectado.linhas[err.linha],
+                "tipo": ErroDetectado.tipos[err.linha],
+                "imagem": os.path.join(os.path.dirname(__file__), "images", err.imagem)
+            }
+            erros.append(e)
+        gerar_pdf(funcionario=request.data['funcionario'], erros=erros)

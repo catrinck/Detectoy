@@ -4,4 +4,10 @@
 /Scripts/
 pyvenv.cfg
 
+# Jetbrains IDE
 .idea
+
+# Imagens e relatorios
+
+Detectoy/relatorios/*
+Detectoy/images/*
