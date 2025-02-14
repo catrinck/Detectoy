@@ -1,0 +1,67 @@
+.Container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #D0D6E2;
+    height: 100vh;
+    /* Centraliza o conteúdo na tela */
+}
+
+.Padding {
+    width: 90vw;
+    /* Largura do retângulo será 60% da largura da janela */
+    height: 80vh;
+    /* Altura do retângulo será 30% da altura da janela */
+    background-color: #0E123F;
+    border: 2px solid;
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 3px 6px #00000029;
+    position: relative;
+}
+
+.CardUser{
+    width: 240px;
+    height: 70px;
+    background-color: antiquewhite;
+    position: absolute;
+    top: 3vh;
+    right: 3vh;
+}
+
+.ContainerUser {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    padding: 10px;
+    justify-content: flex-start;
+    align-items: center;
+    width: 300px;
+    height: 600px;
+}
+
+.Padding2 {
+    width: 80%;
+    max-width: 1370px;
+    height: 635px;
+    background-color: white;
+    color: #0E123F;
+    border: 2px solid;
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    box-shadow: 0px 3px 6px #00000029;
+    position: absolute;
+    top: 50px;
+    left: 0;
+    left: 30px;
+    font-size: 34px;
+    font-weight: bold;
+}

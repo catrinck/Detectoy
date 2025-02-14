@@ -4,6 +4,7 @@ import Home from "./Home"
 import CriarUsuario from "./CriarUsuario";
 import GerenciarUsuarios from "./GerenciarUsuarios";
 import EditarUsuario from "./EditarUsuario";
+import TelaInicial from "./TelaInicial";
 
 
 function App() {
@@ -14,6 +15,8 @@ function App() {
               <Route path="/criar-usuario" element={<CriarUsuario />} />
               <Route path="/usuarios" element={<GerenciarUsuarios />} />
               <Route path="/usuarios/:cpf_usuario" element={<EditarUsuario />} />
+              <Route path="/tela-inicial" element={<TelaInicial />} />
+              <Route path="/Home" element ={<Home />} />
           </Routes>
       </Router>
   );
