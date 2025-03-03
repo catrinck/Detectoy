@@ -1,0 +1,92 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 100px;
+    align-items: center;
+    min-height: 100vh;
+    background: url(./image/backgroundlog.png);
+    background-size: cover;
+}
+
+.container {
+    width: 650px;
+    height: 700px;
+    backdrop-filter: blur(5px);
+    background-color: rgba(199, 199, 199, 0.363);
+    border: 2px solid rgba(255, 255, 255, .2);
+    border-radius: 10px;
+    text-align: right;
+    color: #fff;
+    padding: 30px 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+    margin-left: auto;
+}
+
+.container h1 {
+    font-size: 36px;
+    text-align: center;
+    margin-top: 150px;
+    margin-bottom: 50px;
+}
+
+.input-box {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    margin: 30px 0;
+}
+
+.input-box input{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    border: 2px solid rgb(255, 255, 255);
+    border-radius: 10px;
+    outline: none;
+    font-size: 16px;
+    color: black;
+    padding: 20px 45px 20px 20px;
+}
+
+div i{
+    font-size: 30px;
+    cursor: pointer;
+    position: absolute;
+    right: 3%;
+    top: 5%;
+    color: #ccc;
+}
+
+.input-box input::placeholder{
+    color: #464646c4;
+}
+
+.remember-forgot{
+    display: flex;
+    justify-content: space-between;
+    margin: -15px 0px 15px;
+}
+
+.remember-forgot label input{
+    accent-color: #fff;
+    margin-right: 20px;
+}
+
+.remember-forgot a{
+    text-decoration: none;
+    color: #fff;
+}
+
+.remember-forgot a:hover{
+    text-decoration: underline;
+}
+
+
+

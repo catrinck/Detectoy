@@ -32,6 +32,14 @@ const Home = () => {
                         Tela Inicial
                     </Link>
                 </div>
+                <div>
+                    <Link
+                        to="/login"
+                        className="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 transition"
+                    >
+                        Login
+                    </Link>
+                </div>
             </div>
         </div>
 
