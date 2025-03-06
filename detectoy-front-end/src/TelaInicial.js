@@ -68,13 +68,6 @@ export default function TelaInicial() {
                         </div>
                     </form>
                 </div>
-
-
-                <Link to="/Home">
-                    <button className="hover:text-white absolute bottom-4 right-4 bg-white hover:bg-[#AE91E9] text-[#0E123F] font-bold py-2 px-4 rounded flex items-center gap-2">
-                        Voltar
-                    </button>
-                </Link>
             </div>
         </div>
     );
