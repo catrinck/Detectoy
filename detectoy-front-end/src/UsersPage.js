@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect} from 'react'
 import "./TelaInicial.css";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 
-export default function TelaInicial() {
+export default function UserPage() {
     const [selectedButton, setSelectedButton] = useState(null);
     const navigate = useNavigate();
     const location = useLocation();
@@ -28,7 +28,7 @@ export default function TelaInicial() {
                         Bem vindo, Nome Sobrenome
                     </div>
                     <div className="flex flex-col space-y-4">
-                        <button
+                    <button
                             className={`w-[240px] py-2 px-4 font-bold rounded transition-all
                 ${selectedButton === "tela-inicial"
                                     ? "bg-[#AE91E9] text-white"

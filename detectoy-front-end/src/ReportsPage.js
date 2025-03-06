@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect} from 'react'
 import "./TelaInicial.css";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Link, useNavigate, useLocation} from "react-router-dom";
 
-export default function TelaInicial() {
+export default function ReportsPage() {
     const [selectedButton, setSelectedButton] = useState(null);
     const navigate = useNavigate();
     const location = useLocation();
@@ -19,7 +19,7 @@ export default function TelaInicial() {
             setSelectedButton(null);
         }
     }, [location]);
-
+    
     return (
         <div className="Container">
             <div className="Padding">

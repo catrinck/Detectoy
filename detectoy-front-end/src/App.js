@@ -6,6 +6,8 @@ import GerenciarUsuarios from "./GerenciarUsuarios";
 import EditarUsuario from "./EditarUsuario";
 import TelaInicial from "./TelaInicial";
 import Login from "./Login";
+import UsersPage from "./UsersPage";
+import ReportsPage from "./ReportsPage";
 
 
 function App() {
@@ -19,6 +21,8 @@ function App() {
               <Route path="/tela-inicial" element={<TelaInicial />} />
               <Route path="/Home" element ={<Home />} />
               <Route path="/login" element ={<Login />} />
+              <Route path="/users" element ={<UsersPage />} />
+              <Route path="/reports" element ={<ReportsPage />} />
           </Routes>
       </Router>
   );
