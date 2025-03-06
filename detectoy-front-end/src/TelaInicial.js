@@ -37,6 +37,18 @@ export default function TelaInicial() {
                         >
                             Relatórios
                         </button>
+                        <button
+                            className={`w-[240px] py-2 px-4 font-bold rounded transition-all
+                ${selectedButton === "user"
+                                    ? "bg-[#AE91E9] text-white"
+                                    : "bg-white text-[#0E123F] hover:bg-[#AE91E9] hover:text-white"
+                                }`}
+                            onClick={() =>
+                                setSelectedButton(selectedButton === "user" ? null : "user")
+                            }
+                        >
+                            Usuários
+                        </button>
                     </div>
                 </div>
                 <div className="Padding2">
