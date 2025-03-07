@@ -3,6 +3,7 @@ import os
 from .models import Gerente, Funcionario, ErroDetectado
 from .relatorios import gerar_pdf
 from .serializers import *
+from base64 import decodebytes
 from django.http import FileResponse
 from rest_framework import status
 from rest_framework.decorators import api_view
@@ -127,3 +128,20 @@ def relatorio(request):
         pdf_path = os.path.join(os.path.dirname(__file__), "relatorios", pdf_name)
         response = FileResponse(open(pdf_path, 'rb'), as_attachment=True, filename=pdf_name)
         return response
+    
+
+# estrutura do json
+# { 'momento': momento do erro (datetime),
+#   'linha': linha do erro (int),
+#   'tipo': tipo da maquininha (int),
+#   'imagem': arquivo da imagem codificado para base64 (string) }
+
+# se for pra ser sincero o codigo ta uma merda e tem que ajeitar,
+# mas pra entregar daqui a algumas horas da pro gasto.
+@api_view(['POST'])
+def erro(request):
+    if request.method == 'POST':
+        erro = ErroDetectado(momento=request.data['momento'], linha=request.data['linha'], tipo=request.data['tipo'])
+        erro.save()
+        with open(erro.imagem, "wb") as imagem:
+            imagem.write(decodebytes(request.data['imagem']))

@@ -74,6 +74,6 @@ if __name__ == "__main__":
         "hora": "HH:MM:SS.mmmm",
         "linha": "LINHA",
         "tipo": "TIPO",
-        "imagem": os.path.join(os.path.dirname(__file__), "images/erro.jpg")
+        "imagem": os.path.join(os.path.dirname(__file__), "images/erro.jpeg")
     }
     gerar_pdf("Fulano de Tal", [erro])
