@@ -4,14 +4,11 @@
     align-items: center;
     background-color: #D0D6E2;
     height: 100vh;
-    /* Centraliza o conteúdo na tela */
 }
 
 .Padding {
     width: 90vw;
-    /* Largura do retângulo será 60% da largura da janela */
     height: 80vh;
-    /* Altura do retângulo será 30% da altura da janela */
     background-color: #0E123F;
     border: 2px solid;
     border-radius: 12px;
@@ -38,10 +35,26 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-60%, -50%); /* Adjust as needed */
+    transform: translate(-60%, -50%);
     font-size: 34px;
     font-weight: bold;
 }
+
+.GerarRelatorio{
+    font-size: 34px;
+    font-weight: bold;
+}
+
+@media (max-width: 768px) {
+    .Padding2 {
+        transform: translate(-55%, -50%); 
+    }
+}
+
+
+.flex-1 {
+    flex-grow: 1;
+  }
 
 .btnAddUser{
     color: white;

@@ -50,7 +50,7 @@ export default function ReportsPage() {
                                 navigate("/reports") //navega para reports
                             }
                         >
-                            Relatórios
+                            Setores
                         </button>
                         <button
                             className={`w-[240px] py-2 px-4 font-bold rounded transition-all
@@ -67,7 +67,7 @@ export default function ReportsPage() {
                     </div>
                 </div>
                 <div className="Padding2">
-                    Relatórios
+                    Setores
                     <form class="max-w-md mx-auto mt-2">
                         <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only">Buscar</label>
                         <div class="relative">

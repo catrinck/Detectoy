@@ -60,7 +60,7 @@ export default function UserPage() {
                                 navigate("/reports") //navega para reports
                             }
                         >
-                            Relatórios
+                            Setores
                         </button>
                         <button
                             className={`w-[240px] py-2 px-4 font-bold rounded transition-all
