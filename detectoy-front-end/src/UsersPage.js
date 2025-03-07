@@ -1,11 +1,13 @@
 import React, { useState, useEffect} from 'react'
 import "./TelaInicial.css";
 import { Link, useNavigate, useLocation } from "react-router-dom";
+import PopupCadastro from './PopupCadastro';
 
 export default function UserPage() {
     const [selectedButton, setSelectedButton] = useState(null);
     const navigate = useNavigate();
     const location = useLocation();
+    const [showPopup, setShowPopup] = useState(false);
 
     useEffect(() => {
         const path = location.pathname;
@@ -19,6 +21,14 @@ export default function UserPage() {
             setSelectedButton(null);
         }
     }, [location]);
+
+    const handleOpenPopup = () => {
+        setShowPopup(true);
+    };
+
+    const handleClosePopup = () => {
+        setShowPopup(false);
+    };
 
     return (
         <div className="Container">
@@ -67,7 +77,12 @@ export default function UserPage() {
                     </div>
                 </div>
                 <div className="Padding2">
-                    Dashboard
+                    Usuários
+                    <button className="btnAddUser" onClick={handleOpenPopup}>
+                        Adicionar usuário
+                        <i class="bi bi-person-add"></i>
+                    </button>
+                    {showPopup && <PopupCadastro onClose={handleClosePopup} />}
                     <form class="max-w-md mx-auto mt-2">
                         <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only">Buscar</label>
                         <div class="relative">

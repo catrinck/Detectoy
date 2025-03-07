@@ -43,6 +43,142 @@
     font-weight: bold;
 }
 
+.btnAddUser{
+    color: white;
+    background-color: #AE91E9;
+    padding: 10px 60px;
+    font-size: 18px;
+    position: absolute;
+    top: 5%;
+    right: 50px;
+    border-radius: 26px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.btnAddUser i{
+    color: white;
+    margin-right: 210px;
+    top: -1px;
+}
+
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Fundo semi-transparente */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Garante que o popup fique na frente de outros elementos */
+}
+
+.popup-content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 525px; /* Ajuste a largura conforme necessário */
+    height: 500px;
+    position: relative;
+    place-items: center;
+}
+
+.popup-content h2 {
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.cadastro-input {
+    width: 100%; /* Faz o input ocupar toda a largura do contêiner */
+    padding: 10px; /* Adiciona espaçamento interno */
+    margin-bottom: 10px; /* Adiciona espaçamento abaixo de cada input */
+    border: 1px solid #ccc; /* Adiciona uma borda */
+    border-radius: 5px; /* Arredonda as bordas */
+    font-size: 16px; /* Define o tamanho da fonte */
+    box-sizing: border-box; /* Garante que padding e border não aumentem o tamanho total */
+}
+
+.cadastro-input:focus {
+    outline: none; /* Remove a borda padrão ao focar */
+    border-color: #AE91E9; /* Altera a cor da borda ao focar */
+    box-shadow: 0 0 5px rgba(174, 145, 233, 0.5); /* Adiciona uma sombra suave ao focar */
+}
+
+.btnCadastroUser{
+    background-color: green;
+    color: white;
+    width: 200px;
+    height: 50px;
+    margin: 20px 10px 10px 140px;
+    border-radius: 10px;
+    font-size: 24px;
+}
+
+.checkboxPermissions {
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+
+.checkboxPermissions label {
+    position: relative; /* Necessário para posicionamento relativo do checkbox personalizado */
+    padding-left: 30px; /* Espaço para o checkbox personalizado */
+    margin-right: 100px;
+    cursor: pointer;
+}
+
+.checkboxPermissions input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkboxPermissions label::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: #eee;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+.checkboxPermissions input[type="checkbox"]:checked + label::before {
+    background-color: #AE91E9; /* Cor quando marcado */
+}
+
+.checkboxPermissions input[type="checkbox"]:checked + label::after {
+    content: "";
+    position: absolute;
+    left: 7px;
+    top: 3px;
+    width: 6px;
+    height: 12px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg);
+}
+
 @media (max-width: 768px) {
     .Padding2 {
         transform: translate(-55%, -50%); /* Adjust offset for smaller screens */

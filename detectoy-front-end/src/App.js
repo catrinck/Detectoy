@@ -8,6 +8,7 @@ import TelaInicial from "./TelaInicial";
 import Login from "./Login";
 import UsersPage from "./UsersPage";
 import ReportsPage from "./ReportsPage";
+import PopupCadastro from "./PopupCadastro";
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
               <Route path="/login" element ={<Login />} />
               <Route path="/users" element ={<UsersPage />} />
               <Route path="/reports" element ={<ReportsPage />} />
+              <Route path="/popup-cadastro" element ={<PopupCadastro />} />
           </Routes>
       </Router>
   );
