@@ -6,7 +6,7 @@ from .modeloyolo import process_image
 from .models import Gerente, Funcionario, Erro
 from .relatorios import gerar_pdf
 from .serializers import GerenteSerializer, CriarGerenteSerializer, CriarFuncionarioSerializer, FuncionarioSerializer, ErroSerializer
-from base64 import decodebytes
+from base64 import b64decode
 from django.http import FileResponse
 from rest_framework import status
 from rest_framework.decorators import api_view
@@ -148,63 +148,66 @@ def relatorio(request):
                                 as_attachment=True,
                                 filename=pdf_name)
         return response
-    
-
-# estrutura do json
-# { 'momento': momento do erro (datetime),
-#   'linha': linha do erro (int),
-#   'tipo': tipo da maquininha (int),
-#   'imagem': arquivo da imagem codificado para base64 (string) }
-
-# se for pra ser sincero o codigo ta uma merda e tem que ajeitar,
-# mas pra entregar daqui a algumas horas da pro gasto.
-@api_view(['POST', ' GET'])
-def erro(request):
-    if request.method == 'POST':
-        erro = Erro(momento=request.data['momento'],
-                    linha=request.data['linha'],
-                    tipo=request.data['tipo'])
-        erro.save()
-        with open(erro.imagem, "wb") as imagem:
-                imagem.write(decodebytes(request.data['imagem']))
-        return Response(status=status.HTTP_201_CREATED) 
-    elif request.method == 'GET':
-        erros = Erro.objects.all()
-
-        response = ErroSerializer(erros, context={'request': request},
-                                  many = True)
-        return Response(response.data)
 
 # estrutura do json
 # { 'momento': momento do erro (string no formato %Y-%m-%d-%H-%M-%S-%f),
 #   'linha': linha do erro (int),
 #   'tipo': tipo da maquininha (int),
 #   'image_base64': imagem codificada para base64 }
-@api_view(['POST'])
-def imagem(request):
+@api_view(['POST', 'GET'])
+def erro(request):
     if request.method == 'POST':
         try:
+            print("Json:\n-----")
+            print("momento: ", request.data['momento'])
+            print("linha: ", request.data['linha'])
+            print("tipo: ", request.data['tipo'])
+            print("-----\nCasting momento to datetime...")
             datetime_format = '%Y-%m-%d-%H-%M-%S-%f'
             momento = datetime.datetime.strptime(request.data['momento'],
                                                  datetime_format)
+            print("Done")
+            print("Setting image name...")
             image_name = (str(request.data['tipo']) + "-"
                           + str(request.data['linha']) + "_"
                           + momento.strftime("%Y-%m-%d-%H-%M-%S-%f")
                           + ".jpg")
+            print("Done")
+            print("Setting image path...")
             image_path = os.path.join(os.path.dirname(__file__),
                                       "images",
                                       image_name)
+            print("Done")
+            print("Openning image...")
             with open(image_path, "wb") as image:
-                image.write(decodebytes(request.data['image_base64']))
+                print("Done")
+                print("Writing base64 to image...")
+                image.write(b64decode(request.data['image_base64']))
+                print("Done")
+                print("Closing image...")
+                image.close()
+                print("Done")
+            print("Processing image...")
             errors = process_image(image_name)
-            error = Erro(momento=request.data['momento'],
+            print("Done")
+            print("Creating object Erro...")
+            error = Erro(momento=momento,
                          linha=request.data['linha'],
                          tipo=request.data['tipo'],
                          tela_quebrada=errors['broken_screen'],
                          carcaca_quebrada=errors['broken_shell'],
                          imagem=image_name)
+            print("Done")
+            print("Saving object...")
             error.save()
+            print("Done")
 
             return Response(status=status.HTTP_201_CREATED)
         except TypeError:
             return Response(status=status.HTTP_404_NOT_FOUND)
+    elif request.method == 'GET':
+        erros = Erro.objects.all()
+
+        response = ErroSerializer(erros, context={'request': request},
+                                  many = True)
+        return Response(response.data)

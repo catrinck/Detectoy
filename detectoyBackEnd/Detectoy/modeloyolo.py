@@ -32,7 +32,7 @@ def process_image(image_name: str, config: dict = config):
     image = cv2.imread(image_path)
     if image is None:
         print(f"Couldn't load image in {image_path}")
-        raise TypeError
+        raise TypeError(f"Couldn't load image in {image_path}")
     print("Image loaded.")
 
     print("Analyzing image...")

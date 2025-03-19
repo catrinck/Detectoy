@@ -41,10 +41,10 @@ class Funcionario(models.Model):
 
 
 class Erro(models.Model):
-    def image_file_name(self, filetype=".jpg"):
-        return str(self.tipo) + "-" + str(self.linha) + "_" + self.momento.strftime("%Y-%m-%d-%H-%M-%S-%f") + filetype
+#   def image_file_name(self, filetype=".jpg"):
+#       return str(self.tipo) + "-" + str(self.linha) + "_" + self.momento.strftime("%Y-%m-%d-%H-%M-%S-%f") + filetype
 
-    momento = models.DateTimeField(default=timezone.now())
+    momento = models.DateTimeField(default=timezone.now)
     linha = models.IntegerField()
     tipo = models.IntegerField()
     tela_quebrada = models.BooleanField()
@@ -54,6 +54,6 @@ class Erro(models.Model):
     def __str__(self):
         return self.imagem
 
-    def save(self, *args, **kwargs):
-        self.imagem = Erro.image_file_name(self)
-        super(Erro, self).save(*args, **kwargs)
+#   def save(self, *args, **kwargs):
+#       self.imagem = Erro.image_file_name(self)
+#       super(Erro, self).save(*args, **kwargs)
