@@ -1,8 +1,5 @@
-# Created by venv; see https://docs.python.org/3/library/venv.html
-/Include/
-/Lib/
-/Scripts/
-pyvenv.cfg
+# virtual environment
+.venv
 
 # Jetbrains IDE
 .idea
@@ -11,3 +8,4 @@ pyvenv.cfg
 
 Detectoy/relatorios/*
 Detectoy/images/*
+Detectoy/results/*
