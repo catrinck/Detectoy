@@ -40,28 +40,20 @@ class Funcionario(models.Model):
         super(Funcionario, self).save(*args, **kwargs)
 
 
-class ErroDetectado(models.Model):
+class Erro(models.Model):
     def image_file_name(self, filetype=".jpg"):
         return str(self.tipo) + "-" + str(self.linha) + "_" + self.momento.strftime("%Y-%m-%d-%H-%M-%S-%f") + filetype
-    
-    linhas = {
-        0: "Linha 1",
-        1: "Linha 2",
-        2: "Linha 3"
-    }
-    tipos = {
-        0: "Preta",
-        1: "Branca"
-    }
 
     momento = models.DateTimeField(default=timezone.now())
-    linha = models.IntegerField(choices=linhas)
-    tipo = models.IntegerField(choices=tipos)
+    linha = models.IntegerField()
+    tipo = models.IntegerField()
+    tela_quebrada = models.BooleanField()
+    carcaca_quebrada = models.BooleanField()
     imagem = models.FilePathField(path=os.path.join(os.path.dirname(__file__), "images"))
 
     def __str__(self):
         return self.imagem
 
     def save(self, *args, **kwargs):
-        self.imagem = ErroDetectado.image_file_name(self)
-        super(ErroDetectado, self).save(*args, **kwargs)
+        self.imagem = Erro.image_file_name(self)
+        super(Erro, self).save(*args, **kwargs)

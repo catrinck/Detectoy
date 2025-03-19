@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Gerente, Funcionario, ErroDetectado
+from .models import Gerente, Funcionario, Erro
 
 
 class CriarGerenteSerializer(serializers.ModelSerializer):
@@ -32,7 +32,7 @@ class FuncionarioSerializer(serializers.ModelSerializer):
         exclude = ['senha']
 
 
-class ErroDetectadoSerializer(serializers.ModelSerializer):
+class ErroSerializer(serializers.ModelSerializer):
     class Meta:
-        model = ErroDetectado
+        model = Erro
         fields = '__all__'
