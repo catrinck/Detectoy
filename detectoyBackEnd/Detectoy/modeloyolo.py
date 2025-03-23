@@ -4,7 +4,7 @@ from ultralytics import YOLO
 
 config = {
     'CONFIDENCE_THRESHOLD' : 0.35,
-    'MODEL_PATH' : os.path.join(os.path.dirname(__file__), "models", "best.pt"),
+    'MODEL_PATH' : os.path.join(os.path.dirname(__file__), "models", "banana.pt"),
     'IMAGE_DIR' : os.path.join(os.path.dirname(__file__), "images"),
     'OUTPUT_DIR' : os.path.join(os.path.dirname(__file__), "results")
 }
