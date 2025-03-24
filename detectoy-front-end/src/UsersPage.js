@@ -1,7 +1,9 @@
-import React, { useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import "./TelaInicial.css";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import PopupCadastro from './PopupCadastro';
+import Busca from './components/Busca';
+import CardSetor from './components/CardSetor';
 
 export default function UserPage() {
     const [selectedButton, setSelectedButton] = useState(null);
@@ -38,7 +40,7 @@ export default function UserPage() {
                         Bem vindo, Nome Sobrenome
                     </div>
                     <div className="flex flex-col space-y-4">
-                    <button
+                        <button
                             className={`w-[240px] py-2 px-4 font-bold rounded transition-all
                 ${selectedButton === "tela-inicial"
                                     ? "bg-[#AE91E9] text-white"
@@ -76,27 +78,23 @@ export default function UserPage() {
                         </button>
                     </div>
                 </div>
-                <div className="Padding2">
+                <div className="Padding2 gap-20">
                     Usuários
-                    <button className="btnAddUser" onClick={handleOpenPopup}>
-                        Adicionar usuário
-                        <i class="bi bi-person-add"></i>
-                    </button>
-                    {showPopup && <PopupCadastro onClose={handleClosePopup} />}
-                    <form class="max-w-md mx-auto mt-2">
-                        <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only">Buscar</label>
-                        <div class="relative">
-                            <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                                <svg class="w-4 h-4 text-[#0E123F]-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-                                </svg>
-                            </div>
-                            <input type="search" id="default-search"
-                                class="block w-[350px] p-3 ps-10 text-sm text-[#0E123F] border border-[#0E123F] 
-                    rounded-[26px] bg-[#0E123F]-50 focus:ring-white focus:border-white placeholder:text-[#0E123F] placeholder:font-normal"
-                                placeholder="Buscar" required />
-                        </div>
-                    </form>
+                    <div className='flex justify-end'>
+                        {/* PESQUISA */}
+                        <Busca />
+
+                        <button className="btnAddUser" onClick={handleOpenPopup}>
+                            Adicionar usuário
+                            <i class="bi bi-person-add"></i>
+                        </button>
+                        {showPopup && <PopupCadastro onClose={handleClosePopup} />}
+                        
+                            
+                    </div>
+
+                    
+
                 </div>
                 <Link to="/Home">
                     <button className="hover:text-white absolute bottom-4 right-4 bg-white hover:bg-[#AE91E9] text-[#0E123F] font-bold py-2 px-4 rounded flex items-center gap-2">
