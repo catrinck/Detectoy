@@ -9,7 +9,7 @@ const GerenciarUsuarios = () => {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const response = await axios.get("http://127.0.0.1:8000/api/funcionarios/");
+                const response = await axios.get("http://127.0.0.1:8000/api/gerentes/");
                 setUsuarios(response.data);
             } catch (error) {
                 console.error("Erro ao buscar usuários:", error);
@@ -27,7 +27,7 @@ const GerenciarUsuarios = () => {
 
     const deleteProduct = async (usuario_cpf) => {
         try {
-            await axios.delete(`http://127.0.0.1:8000/api/funcionarios/${usuario_cpf}`);
+            await axios.delete(`http://127.0.0.1:8000/api/gerentes/${usuario_cpf}`);
             alert(`Usuário deletado com sucesso!`);
             setUsuarios(usuarios.filter((usuario) => usuario.cpf !== usuario_cpf));
         } catch (error) {

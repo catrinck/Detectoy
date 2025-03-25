@@ -4,6 +4,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import GerarRelatorio from '../components/GerarRelatorio';
 import HistoricoInfracoes from '../components/HistoricoInfracoes';
 import InfracoesSetor from '../components/InfracoesSetor';
+import axios from 'axios';
 
 
 export default function UserPage() {

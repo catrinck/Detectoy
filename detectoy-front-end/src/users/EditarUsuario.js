@@ -21,7 +21,7 @@ const EditarUsuario = () => {
     useEffect(() => {
         const fetchProduct = async () => {
             try {
-                const response = await axios.get(`http://127.0.0.1:8000/api/funcionarios/${cpf_usuario}`);
+                const response = await axios.get(`http://127.0.0.1:8000/api/gerentes/${cpf_usuario}`);
                 setUsuario(response.data[0]);
             } catch (error) {
                 console.error("Erro ao buscar usuário:", error);
@@ -47,7 +47,7 @@ const EditarUsuario = () => {
         e.preventDefault();
         try {
 
-            await axios.put(`http://127.0.0.1:8000/api/funcionarios/${cpf_usuario}`, usuario);
+            await axios.put(`http://127.0.0.1:8000/api/gerentes/${cpf_usuario}`, usuario);
             alert("Usuários atualizado com sucesso!");
             navigate("/usuarios"); // Redirect to product list
         } catch (error) {
