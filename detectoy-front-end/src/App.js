@@ -11,6 +11,7 @@ import ReportsPage from "./ReportsPage";
 import PopupCadastro from "./PopupCadastro";
 import CadastrarSetor from "./CadastrarSetor";
 import ProtectedRoute from "./ProtectedRoute";
+import Relatorio from "./Relatorio";
 
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
                     <Route path="/reports" element={<ReportsPage />} />
                     <Route path="/popup-cadastro" element={<PopupCadastro />} />
                     <Route path="/CadastrarSetor" element={<CadastrarSetor />}></Route>
+                    <Route path="/Relatorio" element={<Relatorio />} />
                 </Route>
             </Routes> 
         </Router>

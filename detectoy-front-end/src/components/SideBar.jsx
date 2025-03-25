@@ -95,6 +95,19 @@ export default function SideBar() {
                 Usuários
             </button>
 
+            <button
+                className={`w-[240px] py-2 px-4 font-bold rounded transition-all
+                ${selectedButton === "Relatorio"
+                        ? "bg-[#AE91E9] text-white"
+                        : "bg-white text-[#0E123F] hover:bg-[#AE91E9] hover:text-white"
+                    }`}
+                onClick={() =>
+                    navigate("/Relatorio") //navega para users
+                }
+            >
+                Relatório
+            </button>
+
             <Link to="/Login">
                 <button className="hover:text-white bg-white hover:bg-[#AE91E9] text-[#0E123F] font-bold py-2 px-4 rounded flex items-center gap-2 "
                     onClick={handleLogout}>
