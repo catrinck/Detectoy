@@ -1,6 +1,6 @@
 // PopupCadastro.js
 import React, { useState } from 'react';
-import './TelaInicial.css';
+import './home-page/TelaInicial.css';
 
 function PopupCadastro({ onClose }) {
 

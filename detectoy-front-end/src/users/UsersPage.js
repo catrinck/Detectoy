@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import "./TelaInicial.css";
+import "../home-page/TelaInicial.css";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import PopupCadastro from './PopupCadastro';
-import Busca from './components/Busca';
-import CardSetor from './components/CardSetor';
+import PopupCadastro from '../PopupCadastro';
+import Busca from '../components/Busca';
+import CardSetor from '../components/CardSetor';
 
 export default function UserPage() {
     const [selectedButton, setSelectedButton] = useState(null);
