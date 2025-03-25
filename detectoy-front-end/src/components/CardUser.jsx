@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Edit2Icon, EyeIcon, TrashIcon } from "lucide-react";
 
+
 const CardUser = ({ usuario, onShowEquipament, deleteUser }) => {
     const { cpf, nome, log, cameras, relatorios } = usuario;
     const role = log && cameras && relatorios ? "Administrador" : "Supervisor";
@@ -65,11 +66,11 @@ const GerenciarUsuarios = () => {
     };
 
     return (
-        <div>
+        <div >
             {usuarios.length > 0 ? (
-                <div className="min-w-635px">
+                <div className="min-w-635px item-start grid grid-cols-3 gap-4 overflow-scroll h-full">
                     {usuarios.map((usuario) => (
-                        <CardUser
+                        <CardUser 
                             key={usuario.cpf}
                             usuario={usuario}
                             onShowEquipament={editUsuario}
