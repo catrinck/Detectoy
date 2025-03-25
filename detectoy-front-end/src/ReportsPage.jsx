@@ -49,7 +49,7 @@ export default function ReportsPage() {
                     </header>
                                {/* a ser ajustado */}
                     <div className='flex-1 mt-4 w-full'>
-                        <div className='item-start grid grid-cols-4 gap-4 '>
+                        <div className='item-start grid grid-cols-3 gap-4 overflow-y-scroll h-[500px] '>
                             <CardSetor/>
                             <CardSetor/>
                             <CardSetor/>

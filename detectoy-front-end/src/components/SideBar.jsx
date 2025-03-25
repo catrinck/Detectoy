@@ -26,7 +26,18 @@ export default function SideBar() {
 
 
     return (
-        <div className="flex flex-col space-y-4">
+        <div className="flex flex-col space-y-4 w-full" >
+            
+            <div className='p-2 m-2 '>
+
+                    <div className="bg-[#090A1C] rounded-lg shadow-md p-4 text-white w-[240px] h-[70px] flex items-center justify-center mb-12 mt-10">
+                        <h1>Bem vindo, Nome Sobrenome</h1>
+                    </div>
+
+                    <SideBar />
+
+                </div>
+
             <button
                 className={`w-[240px] py-2 px-4 font-bold rounded transition-all
                 ${selectedButton === "tela-inicial"
@@ -64,14 +75,24 @@ export default function SideBar() {
                 Usuários
             </button>
 
-            <Link to="/Home">
-                    <button className="hover:text-white absolute bottom-0 right-2 bg-white hover:bg-[#AE91E9] text-[#0E123F] font-bold py-2 px-4 rounded flex items-center gap-2">
-                        Voltar
-                    </button>
-            </Link>
+            < div className='absolute bottom-12 w-full '>
+                <button
+                    className={`w- py-2 px-4 font-bold rounded transition-all 
+                ${selectedButton === "users"
+                            ? "bg-[#AE91E9] text-white"
+                            : "bg-white text-[#0E123F] hover:bg-[#AE91E9] hover:text-white"
+                        }`}
+                    onClick={() =>
+                        navigate("/Home") //navega para users
+                    }
+                >
+                    Sair
+                </button>
+            </div>
 
         </div>
 
 
     )
 }
+// className = "hover:text-white bg-white hover:bg-[#AE91E9] text-[#0E123F] font-bold py-2 px-4 rounded flex items-center gap-2" >
