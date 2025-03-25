@@ -4,11 +4,29 @@ import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { jwtDecode } from "jwt-decode";
 
 export default function SideBar() {
     const [selectedButton, setSelectedButton] = useState(null);
     const navigate = useNavigate();
     const location = useLocation();
+    const [userName, setUserName] = useState("Usuário");
+
+
+    useEffect(() => {
+        // Pega o token do localStorage
+        const token = localStorage.getItem("token");
+
+        if (token) {
+            try {
+                // Decodifica o token para obter o nome do usuário
+                const decodedToken = jwtDecode(token);
+                setUserName(decodedToken.nome || "Usuário");
+            } catch (error) {
+                console.error("Erro ao decodificar token:", error);
+            }
+        }
+    }, []);
 
     const handleLogout = () => {
         localStorage.removeItem("token"); // Remove o token JWT
@@ -34,7 +52,7 @@ export default function SideBar() {
         <div className="flex flex-col space-y-4 ">
             
             <div className="bg-[#090A1C] rounded-lg shadow-md p-4 text-white w-[240px] h-[70px] flex items-center justify-center mb-12 mt-10">
-                Bem vindo, Nome Sobrenome
+                Bem vindo, {userName}
             </div>
             
             <button

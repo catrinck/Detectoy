@@ -65,6 +65,8 @@ def gerente_login(request):
         if auth:
             # Gerar um token JWT
             refresh = RefreshToken.for_user(gerente)
+            # Adicionar o nome do gerente no token
+            refresh["nome"] = gerente.nome  
             return Response({
                 "refresh": str(refresh),
                 "token": str(refresh.access_token)
