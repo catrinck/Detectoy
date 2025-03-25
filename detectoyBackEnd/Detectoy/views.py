@@ -68,7 +68,7 @@ def funcionarios(request):
         data = Funcionario.objects.all()
 
         serializer = FuncionarioSerializer(data,
-                                           text={'request': request},
+                                           context={'request': request},
                                            many=True)
 
         return Response(serializer.data)

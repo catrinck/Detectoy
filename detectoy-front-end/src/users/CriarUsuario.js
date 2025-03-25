@@ -30,7 +30,7 @@ const CriarUsuario = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post("http://127.0.0.1:8000/api/usuarios/", usuario);
+            const response = await axios.post("http://127.0.0.1:8000/api/funcionarios/", usuario);
             alert(response.status + " - Usuário criado: " + usuario.nome);
         } catch (error) {
             alert("Erro ao criar o usuário: " + error.message);
