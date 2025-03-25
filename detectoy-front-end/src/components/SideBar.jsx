@@ -31,7 +31,18 @@ export default function SideBar() {
 
 
     return (
-        <div className="flex flex-col space-y-4">
+        <div className="flex flex-col space-y-4 w-full" >
+            
+            <div className='p-2 m-2 '>
+
+                    <div className="bg-[#090A1C] rounded-lg shadow-md p-4 text-white w-[240px] h-[70px] flex items-center justify-center mb-12 mt-10">
+                        <h1>Bem vindo, Nome Sobrenome</h1>
+                    </div>
+
+                    <SideBar />
+
+                </div>
+
             <button
                 className={`w-[240px] py-2 px-4 font-bold rounded transition-all
                 ${selectedButton === "tela-inicial"
@@ -81,3 +92,4 @@ export default function SideBar() {
 
     )
 }
+// className = "hover:text-white bg-white hover:bg-[#AE91E9] text-[#0E123F] font-bold py-2 px-4 rounded flex items-center gap-2" >
