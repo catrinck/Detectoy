@@ -16,6 +16,9 @@ No final o resultado deve ser algo semelhante a isso:\
 Execute o seguinte comando no terminal (diretorio do projeto):\
 ```pip install -r requirements.txt```
 
+```pip install djangorestframework-simplejwt```
+
+
 ### 1.3. Configurando o banco de dados
 
 Para configurar o banco de dados, veririfque o login do postgres em ```db_setup.py```.\

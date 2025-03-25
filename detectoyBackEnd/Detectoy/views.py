@@ -11,6 +11,10 @@ from django.http import FileResponse
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from django.contrib.auth import authenticate
+from rest_framework_simplejwt.tokens import RefreshToken
+
+
 
 @api_view(['GET', 'POST'])
 def gerentes(request):
@@ -54,13 +58,20 @@ def gerentes_modificar(request, cpf):
 
 @api_view(['POST'])
 def gerente_login(request):
-    if request.method == 'POST':
+    try:
         gerente = Gerente.objects.get(pk=request.data['cpf'])
         auth = bcrypt.checkpw(bytes(request.data['senha'], 'utf-8'),
                               bytes(gerente.senha[2:-1], 'utf-8'))
         if auth:
-            return Response(status=status.HTTP_200_OK)
-        return Response(status=status.HTTP_400_BAD_REQUEST)
+            # Gerar um token JWT
+            refresh = RefreshToken.for_user(gerente)
+            return Response({
+                "refresh": str(refresh),
+                "token": str(refresh.access_token)
+            }, status=status.HTTP_200_OK)
+        return Response({"error": "Credenciais inválidas"}, status=status.HTTP_400_BAD_REQUEST)
+    except Gerente.DoesNotExist:
+            return Response({"error": "Gerente não encontrado"}, status=status.HTTP_404_NOT_FOUND)
 
 @api_view(['GET', 'POST'])
 def funcionarios(request):
@@ -68,7 +79,7 @@ def funcionarios(request):
         data = Funcionario.objects.all()
 
         serializer = FuncionarioSerializer(data,
-                                           text={'request': request},
+                                           context={'request': request},
                                            many=True)
 
         return Response(serializer.data)
