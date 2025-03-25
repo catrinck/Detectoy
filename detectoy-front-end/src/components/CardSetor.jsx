@@ -18,7 +18,7 @@ export default function CardSetor({
 
   return (
     <>
-      <div className="overflow-hidden bg-red-500 rounded-xl  h-28 shadow-md w-full flex">
+      <div className="overflow-hidden bg-[#F6F6F6] rounded-xl  h-28 shadow-md w-full flex">
         <div className="bg-[#AE91E9] shrink-0 w-4" />
         <div className="flex flex-row w-full p-2 relative">
           <div className="flex flex-col justify-between">
@@ -75,6 +75,6 @@ export default function CardSetor({
       </div>
 
 
-    </>
+</>
   );
 }
