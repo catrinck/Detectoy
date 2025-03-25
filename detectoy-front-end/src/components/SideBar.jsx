@@ -10,6 +10,11 @@ export default function SideBar() {
     const navigate = useNavigate();
     const location = useLocation();
 
+    const handleLogout = () => {
+        localStorage.removeItem("token"); // Remove o token JWT
+        navigate("/"); // Redireciona para a página de login
+    };
+
     useEffect(() => {
         const path = location.pathname;
         if (path === "/tela-inicial") {
@@ -64,9 +69,10 @@ export default function SideBar() {
                 Usuários
             </button>
 
-            <Link to="/Home">
-                    <button className="hover:text-white absolute bottom-0 right-2 bg-white hover:bg-[#AE91E9] text-[#0E123F] font-bold py-2 px-4 rounded flex items-center gap-2">
-                        Voltar
+            <Link to="/Login">
+                    <button className="hover:text-white absolute bottom-0 right-2 bg-white hover:bg-[#AE91E9] text-[#0E123F] font-bold py-2 px-4 rounded flex items-center gap-2"
+                            onClick={handleLogout}>
+                        Logout
                     </button>
             </Link>
 
