@@ -52,7 +52,10 @@ export default function SideBar() {
         <div className="flex flex-col space-y-4 ">
             
             <div className="bg-[#090A1C] rounded-lg shadow-md p-4 text-white w-[240px] h-[70px] flex items-center justify-center mb-12 mt-10">
-                Bem vindo, {userName}
+                Bem vindo,&nbsp;
+                <div className="font-bold">
+                    {userName}
+                </div>
             </div>
 
             <button
