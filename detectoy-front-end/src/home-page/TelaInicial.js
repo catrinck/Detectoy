@@ -35,7 +35,7 @@ export default function UserPage() {
   };
 
   return (
-    <div className="Container">
+    <div className="Container h-[720px]">
       <div className="Padding">
         <div className="h-full flex flex-col items-end absolute top-[3vh] right-[3vh]">
           

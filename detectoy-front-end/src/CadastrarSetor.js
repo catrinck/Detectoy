@@ -37,7 +37,7 @@ export default function CadastrarSetor({ handleSubmit }) {
     };
 
     return (
-        <div>
+        <div className='h-[720px]'>
             <div className='p-10 m-20 rounded-md bg-[#0E123F] h-full flex flex-1'>
 
                 <div className='bg-white rounded-md h-full w-[81.75rem] p-12'>

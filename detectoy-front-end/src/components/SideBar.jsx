@@ -54,7 +54,7 @@ export default function SideBar() {
             <div className="bg-[#090A1C] rounded-lg shadow-md p-4 text-white w-[240px] h-[70px] flex items-center justify-center mb-12 mt-10">
                 Bem vindo, {userName}
             </div>
-            
+
             <button
                 className={`w-[240px] py-2 px-4 font-bold rounded transition-all
                 ${selectedButton === "tela-inicial"
@@ -93,7 +93,7 @@ export default function SideBar() {
             </button>
 
             <Link to="/Login">
-                <button className="hover:text-white bg-white hover:bg-[#AE91E9] text-[#0E123F] font-bold py-2 px-4 rounded flex items-center gap-2 absolute bottom-16 "
+                <button className="hover:text-white bg-white hover:bg-[#AE91E9] text-[#0E123F] font-bold py-2 px-4 rounded flex items-center gap-2 "
                     onClick={handleLogout}>
                     Logout
                 </button>
