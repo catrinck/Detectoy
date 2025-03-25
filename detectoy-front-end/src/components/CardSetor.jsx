@@ -41,7 +41,7 @@ export default function CardSetor({
             </div>
           </div>
 
-          <div className="right-1.5 top-1.5 absolute flex flex-col gap-1.5">
+          <div className="right-1.5 top-1.5 absolute flex flex-col gap-1.5 mt-4">
 
             {/* Botões de edição */}
             <button

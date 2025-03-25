@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import "../home-page/TelaInicial.css";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import PopupCadastro from '../PopupCadastro';
+import CardUser from '../components/CardUser';
+import SideBar from '../components/SideBar';
 import Busca from '../components/Busca';
-import CardSetor from '../components/CardSetor';
+import PopupCadastro from '../PopupCadastro';
 
-export default function UserPage() {
+export default function Users() {
     const [selectedButton, setSelectedButton] = useState(null);
     const navigate = useNavigate();
     const location = useLocation();
@@ -27,80 +27,64 @@ export default function UserPage() {
     const handleOpenPopup = () => {
         setShowPopup(true);
     };
-
     const handleClosePopup = () => {
         setShowPopup(false);
     };
 
+
     return (
-        <div className="Container">
-            <div className="Padding">
-                <div className="ContainerUser flex flex-col items-end absolute top-[3vh] right-[3vh]">
-                    <div className="bg-[#090A1C] rounded-lg shadow-md p-4 text-white w-[240px] h-[70px] flex items-center justify-center mb-12 mt-10">
-                        Bem vindo, Nome Sobrenome
-                    </div>
-                    <div className="flex flex-col space-y-4">
-                        <button
-                            className={`w-[240px] py-2 px-4 font-bold rounded transition-all
-                ${selectedButton === "tela-inicial"
-                                    ? "bg-[#AE91E9] text-white"
-                                    : "bg-white text-[#0E123F] hover:bg-[#AE91E9] hover:text-white"
-                                }`}
-                            onClick={() =>
-                                navigate("/tela-inicial") //navega para dashboard
-                            }
-                        >
-                            Dashboard
-                        </button>
-                        <button
-                            className={`w-[240px] py-2 px-4 font-bold rounded transition-all
-                ${selectedButton === "reports"
-                                    ? "bg-[#AE91E9] text-white"
-                                    : "bg-white text-[#0E123F] hover:bg-[#AE91E9] hover:text-white"
-                                }`}
-                            onClick={() =>
-                                navigate("/reports") //navega para reports
-                            }
-                        >
-                            Setores
-                        </button>
-                        <button
-                            className={`w-[240px] py-2 px-4 font-bold rounded transition-all
-                ${selectedButton === "users"
-                                    ? "bg-[#AE91E9] text-white"
-                                    : "bg-white text-[#0E123F] hover:bg-[#AE91E9] hover:text-white"
-                                }`}
-                            onClick={() =>
-                                navigate("/users") //navega para users
-                            }
-                        >
-                            Usuários
-                        </button>
-                    </div>
-                </div>
-                <div className="Padding2 gap-20">
-                    Usuários
-                    <div className='flex justify-end'>
-                        {/* PESQUISA */}
-                        <Busca />
+        <div>
+            <div className='p-10 m-20 rounded-md bg-[#0E123F] h-full flex flex-1'>
 
-                        <button className="btnAddUser" onClick={handleOpenPopup}>
-                            Adicionar usuário
-                            <i class="bi bi-person-add"></i>
-                        </button>
-                        {showPopup && <PopupCadastro onClose={handleClosePopup} />}
-                        
+                <div className='bg-white flex flex-col items-center justify-center rounded-md h-full w-[81.75rem] p-8'>
+                    <header className='flex flex-1 justify-between flex-row items-center w-full'>
+                        <h1 className='text-[#0E123F] font-bold text-[28px]'>Usuários</h1>
+                        <div className='flex flex-1 justify-end gap-8'>
+                            <Busca/>
+                            <button className="px-16 py-3 font-bold bg-[#AE91E9] text-white items-center justify-center rounded-full flex gap-2 h-[75%] mt-1" onClick={handleOpenPopup}>                         
+                                <img src='AddUser.svg' alt='a'/>
+                                Adicionar Usuario
+                            </button>
+                            {showPopup && <PopupCadastro onClose={handleClosePopup} />}
+
+                            <div>
+                                
+                            </div>
+
+
+                        </div>
+                    </header>
+                               {/* a ser ajustado */}
+                    <div className='flex-1 mt-4 w-full'>
+                        <div className='item-start grid grid-cols-3 gap-4 '>
+                            <CardUser/>
+                            <CardUser/>
+                            <CardUser/>
+                            <CardUser/>
+                            <CardUser/>
+                            <CardUser/>
+                            <CardUser/>
+                            <CardUser/>
+                            <CardUser/>
+                            <CardUser/>
+                            <CardUser/>
+                            <CardUser/>
+
                             
+                        </div>
+                    </div>
+                </div>
+
+                <div className='p-2 m-2 '>
+
+                    <div className="bg-[#090A1C] rounded-lg shadow-md p-4 text-white w-[240px] h-[70px] flex items-center justify-center mb-12 mt-10">
+                        <h1>Bem vindo, Nome Sobrenome</h1>
                     </div>
 
-                    
+                    <SideBar />
 
                 </div>
-                <Link to="/Home">
-                    <button className="hover:text-white absolute bottom-4 right-4 bg-white hover:bg-[#AE91E9] text-[#0E123F] font-bold py-2 px-4 rounded flex items-center gap-2">
-                        Voltar
-                    </button>
-                </Link>
+
             </div>
         </div>
     );

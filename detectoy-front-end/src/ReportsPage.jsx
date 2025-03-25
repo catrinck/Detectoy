@@ -34,7 +34,7 @@ export default function ReportsPage() {
 
     return (
         <div>
-            <div className='p-20 m-20 rounded-md bg-[#0E123F] h-full flex flex-1'>
+            <div className='p-10 m-20 rounded-md bg-[#0E123F] h-full flex flex-1'>
 
                 <div className='bg-white flex flex-col items-center justify-center rounded-md h-full w-[81.75rem] p-8'>
                     <header className='flex flex-1 justify-between flex-row items-center w-full'>
@@ -48,8 +48,8 @@ export default function ReportsPage() {
                         </div>
                     </header>
                                {/* a ser ajustado */}
-                    <div className='flex-1 mt-4'>
-                        <div className='grid grid-cols-4 gap-4 '>
+                    <div className='flex-1 mt-4 w-full'>
+                        <div className='item-start grid grid-cols-4 gap-4 '>
                             <CardSetor/>
                             <CardSetor/>
                             <CardSetor/>
@@ -58,7 +58,14 @@ export default function ReportsPage() {
                             <CardSetor/>
                             <CardSetor/>
                             <CardSetor/>
-
+                            <CardSetor/>
+                            <CardSetor/>
+                            <CardSetor/>
+                            <CardSetor/>
+                            <CardSetor/>
+                            <CardSetor/>
+                            <CardSetor/>
+                            <CardSetor/>
                             
                         </div>
                     </div>
