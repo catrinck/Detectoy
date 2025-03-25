@@ -18,6 +18,8 @@ Execute o seguinte comando no terminal (diretorio do projeto):\
 
 ```pip install djangorestframework-simplejwt```
 
+```npm install jwt-decode```
+
 
 ### 1.3. Configurando o banco de dados
 
