@@ -77,10 +77,6 @@ export default function CadastrarSetor({ handleSubmit }) {
 
                 <div className='p-2 m-2 '>
 
-                    <div className="bg-[#090A1C] rounded-lg shadow-md p-4 text-white w-[240px] h-[70px] flex items-center justify-center mb-12 mt-10">
-                        <h1>Bem vindo, Nome Sobrenome</h1>
-                    </div>
-
                     <SideBar />
 
                 </div>
