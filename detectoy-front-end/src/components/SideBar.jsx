@@ -31,7 +31,12 @@ export default function SideBar() {
 
 
     return (
-        <div className="flex flex-col space-y-4">
+        <div className="flex flex-col space-y-4 ">
+            
+            <div className="bg-[#090A1C] rounded-lg shadow-md p-4 text-white w-[240px] h-[70px] flex items-center justify-center mb-12 mt-10">
+                Bem vindo, Nome Sobrenome
+            </div>
+            
             <button
                 className={`w-[240px] py-2 px-4 font-bold rounded transition-all
                 ${selectedButton === "tela-inicial"
@@ -70,10 +75,10 @@ export default function SideBar() {
             </button>
 
             <Link to="/Login">
-                    <button className="hover:text-white absolute bottom-0 right-2 bg-white hover:bg-[#AE91E9] text-[#0E123F] font-bold py-2 px-4 rounded flex items-center gap-2"
-                            onClick={handleLogout}>
-                        Logout
-                    </button>
+                <button className="hover:text-white bg-white hover:bg-[#AE91E9] text-[#0E123F] font-bold py-2 px-4 rounded flex items-center gap-2 absolute bottom-16 "
+                    onClick={handleLogout}>
+                    Logout
+                </button>
             </Link>
 
         </div>

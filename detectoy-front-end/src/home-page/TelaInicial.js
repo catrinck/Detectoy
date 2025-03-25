@@ -5,7 +5,7 @@ import GerarRelatorio from '../components/GerarRelatorio';
 import HistoricoInfracoes from '../components/HistoricoInfracoes';
 import InfracoesSetor from '../components/InfracoesSetor';
 import axios from 'axios';
-
+import Sidebar from '../components/SideBar';
 
 export default function UserPage() {
   const [selectedButton, setSelectedButton] = useState(null);
@@ -37,47 +37,10 @@ export default function UserPage() {
   return (
     <div className="Container">
       <div className="Padding">
-        <div className="ContainerUser flex flex-col items-end absolute top-[3vh] right-[3vh]">
-          <div className="bg-[#090A1C] rounded-lg shadow-md p-4 text-white w-[240px] h-[70px] flex items-center justify-center mb-12 mt-10">
-            Bem vindo, Nome Sobrenome
-          </div>
-          <div className="flex flex-col space-y-4">
-            <button
-              className={`w-[240px] py-2 px-4 font-bold rounded transition-all
-                ${selectedButton === "tela-inicial"
-                  ? "bg-[#AE91E9] text-white"
-                  : "bg-white text-[#0E123F] hover:bg-[#AE91E9] hover:text-white"
-                }`}
-              onClick={() =>
-                navigate("/tela-inicial") //navega para dashboard
-              }
-            >
-              Dashboard
-            </button>
-            <button
-              className={`w-[240px] py-2 px-4 font-bold rounded transition-all
-                ${selectedButton === "reports"
-                  ? "bg-[#AE91E9] text-white"
-                  : "bg-white text-[#0E123F] hover:bg-[#AE91E9] hover:text-white"
-                }`}
-              onClick={() =>
-                navigate("/reports") //navega para reports
-              }
-            >
-              Setores
-            </button>
-            <button
-              className={`w-[240px] py-2 px-4 font-bold rounded transition-all
-                ${selectedButton === "users"
-                  ? "bg-[#AE91E9] text-white"
-                  : "bg-white text-[#0E123F] hover:bg-[#AE91E9] hover:text-white"
-                }`}
-              onClick={() =>
-                navigate("/users") //navega para users
-              }
-            >
-              Usuários
-            </button>
+        <div className="h-full flex flex-col items-end absolute top-[3vh] right-[3vh]">
+          
+          <div className="h-full">
+           <Sidebar/>
           </div>
         </div>
 
@@ -99,7 +62,7 @@ export default function UserPage() {
           </div>
         </div>
 
-        
+
       </div>
     </div>
   );
