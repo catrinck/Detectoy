@@ -37,7 +37,7 @@ export default function Users() {
             <div className='p-10 w-[80%] rounded-md bg-[#0E123F] h-[80%] flex justify-between gap-6 '>
 
                 <div className='bg-white flex flex-col items-center justify-center rounded-md h-full w-full p-8'>
-                    <header className='flex flex-1 justify-between flex-row items-center w-full'>
+                    <header className='flex py-4 justify-between flex-row items-center w-full'>
                         <h1 className='text-[#0E123F] font-bold text-[28px]'>Usuários</h1>
                         <div className='flex flex-1 justify-end gap-8'>
                             <Busca/>
@@ -55,10 +55,10 @@ export default function Users() {
                         </div>
                     </header>
                                {/* a ser ajustado */}
-                    <div className='flex-1 mt-4 w-full'>
-                        <div className='h-[500px] '>
+                    <div className='w-full mt-8 h-[500px]'>
+                        {/* <div className=''> */}
                             <CardUser/>
-                        </div>
+                        {/* </div> */}
                     </div>
                 </div>
 
