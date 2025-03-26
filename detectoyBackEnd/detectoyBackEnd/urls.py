@@ -20,12 +20,15 @@ from Detectoy import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    # User management
     path('api/gerentes/', views.gerentes),
     path('api/gerentes/<int:cpf>', views.gerentes_modificar),
     path('api/funcionarios/', views.funcionarios),
     path('api/funcionarios/<int:cpf>', views.funcionarios_modificar),
+    # Authentication
     path('api/login/gerentes/', views.gerente_login),
     path('api/login/funcionarios/', views.funcionario_login),
+    # Reports
     path('api/relatorio', views.relatorio),
-    path('api/erro', views.erro)
+    path('api/erro', views.erro),
 ]

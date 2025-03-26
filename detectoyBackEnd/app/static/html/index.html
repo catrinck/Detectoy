@@ -25,65 +25,71 @@
             font-weight: bold;
             margin-right: 8px;
         }
-        .get { background: #61affe; color: white; }
         .post { background: #49cc90; color: white; }
+        .get { background: #61affe; color: white; }
         .put { background: #fca130; color: white; }
         .delete { background: #f93e3e; color: white; }
-        .ws { background: #7d3c98; color: white; }
+        code { 
+            background: #f8f8f8;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
     </style>
 </head>
 <body>
     <h1>Detectoy API</h1>
-    <p>Bem-vindo à API do Detectoy. Endpoints disponíveis:</p>
-    
+    <p>API para detecção de defeitos em dispositivos móveis e gerenciamento de usuários</p>
+
     <div class="endpoint">
         <h3>Documentação</h3>
-        <p>Acesse a documentação interativa da API em: <a href="/docs">/docs</a></p>
+        <p>Acesse a documentação interativa em: <a href="/docs">/docs</a></p>
     </div>
 
     <div class="endpoint">
-        <h3>Detecção de Objetos</h3>
+        <h3>Detecção de Imagens</h3>
         <ul>
-            <li><span class="method post">POST</span> /api/v1/detections/ - Upload e análise de imagem</li>
-            <li><span class="method ws">WS</span> /api/v1/camera/stream - Stream de câmera em tempo real</li>
+            <li>
+                <span class="method post">POST</span>
+                <code>/api/v1/detections</code>
+            </li>
         </ul>
     </div>
 
     <div class="endpoint">
         <h3>Gerenciamento de Gerentes</h3>
         <ul>
-            <li><span class="method get">GET</span> /api/v1/gerentes/ - Listar todos os gerentes</li>
-            <li><span class="method post">POST</span> /api/v1/gerentes/ - Criar novo gerente</li>
-            <li><span class="method get">GET</span> /api/v1/gerentes/{cpf} - Obter gerente específico</li>
-            <li><span class="method put">PUT</span> /api/v1/gerentes/{cpf} - Atualizar gerente</li>
-            <li><span class="method delete">DELETE</span> /api/v1/gerentes/{cpf} - Remover gerente</li>
+            <li><span class="method get">GET</span> <code>/api/gerentes/</code> - Listar todos os gerentes</li>
+            <li><span class="method post">POST</span> <code>/api/gerentes/</code> - Criar novo gerente</li>
+            <li><span class="method get">GET</span> <code>/api/gerentes/{cpf}</code> - Obter gerente específico</li>
+            <li><span class="method put">PUT</span> <code>/api/gerentes/{cpf}</code> - Atualizar gerente</li>
+            <li><span class="method delete">DELETE</span> <code>/api/gerentes/{cpf}</code> - Remover gerente</li>
         </ul>
     </div>
 
     <div class="endpoint">
-        <h3>Gerenciamento de Usuários</h3>
+        <h3>Gerenciamento de Funcionários</h3>
         <ul>
-            <li><span class="method get">GET</span> /api/funcionarios/ - Listar todos os usuários</li>
-            <li><span class="method post">POST</span> /api/funcionarios/ - Criar novo usuário</li>
-            <li><span class="method get">GET</span> /api/funcionarios/{cpf} - Obter usuário específico</li>
-            <li><span class="method put">PUT</span> /api/funcionarios/{cpf} - Atualizar usuário</li>
-            <li><span class="method delete">DELETE</span> /api/funcionarios/{cpf} - Remover usuário</li>
+            <li><span class="method get">GET</span> <code>/api/funcionarios/</code> - Listar todos os funcionários</li>
+            <li><span class="method post">POST</span> <code>/api/funcionarios/</code> - Criar novo funcionário</li>
+            <li><span class="method get">GET</span> <code>/api/funcionarios/{cpf}</code> - Obter funcionário específico</li>
+            <li><span class="method put">PUT</span> <code>/api/funcionarios/{cpf}</code> - Atualizar funcionário</li>
+            <li><span class="method delete">DELETE</span> <code>/api/funcionarios/{cpf}</code> - Remover funcionário</li>
         </ul>
     </div>
 
     <div class="endpoint">
         <h3>Autenticação</h3>
         <ul>
-            <li><span class="method post">POST</span> /api/login/gerentes/ - Login de gerentes</li>
-            <li><span class="method post">POST</span> /api/login/funcionarios/ - Login de funcionários</li>
+            <li><span class="method post">POST</span> <code>/api/login/gerentes/</code> - Login de gerentes</li>
+            <li><span class="method post">POST</span> <code>/api/login/funcionarios/</code> - Login de funcionários</li>
         </ul>
     </div>
 
     <div class="endpoint">
         <h3>Relatórios</h3>
         <ul>
-            <li><span class="method get">GET</span> /api/relatorio - Gerar relatório</li>
-            <li><span class="method get">GET</span> /api/erro - Listar erros</li>
+            <li><span class="method get">GET</span> <code>/api/relatorio</code> - Gerar relatório</li>
+            <li><span class="method get">GET</span> <code>/api/erro</code> - Listar erros</li>
         </ul>
     </div>
 
@@ -93,25 +99,42 @@
         <pre>
 POST /api/gerentes/
 {
-    "cpf": 99538199200,
+    "cpf": "99538199200",
     "nome": "Pedro Ituassú",
     "email": "pcmi.eng23@uea.edu.br",
     "senha": "xxxx"
-}
-        </pre>
+}</pre>
 
-        <h4>Criar Usuário:</h4>
+        <h4>Criar Funcionário:</h4>
         <pre>
 POST /api/funcionarios/
 {
-    "cpf": 99538199200,
+    "cpf": "99538199200",
     "nome": "Pedro Ituassú",
     "email": "pcmi.eng23@uea.edu.br",
     "senha": "xxxx",
     "cameras": false,
     "relatorios": false
-}
-        </pre>
+}</pre>
+
+        <h4>Login:</h4>
+        <pre>
+POST /api/login/gerentes/
+{
+    "email": "pcmi.eng23@uea.edu.br",
+    "senha": "xxxx"
+}</pre>
+    </div>
+
+    <div class="endpoint">
+        <h3>Status da API</h3>
+        <ul>
+            <li>Versão: v1</li>
+            <li>Modelo: YOLOv8</li>
+            <li>Classes: ["tela_quebrada", "carcaca_quebrada"]</li>
+            <li>Banco de Dados: PostgreSQL</li>
+            <li>Autenticação: JWT</li>
+        </ul>
     </div>
 </body>
 </html>
