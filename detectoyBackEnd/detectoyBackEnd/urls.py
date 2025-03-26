@@ -21,9 +21,9 @@ from Detectoy import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/gerentes/', views.gerentes),
-    path('api/gerentes/<int:cpf>', views.gerentes_modificar),
+    path('api/gerentes/<str:cpf>', views.gerentes_modificar),
     path('api/funcionarios/', views.funcionarios),
-    path('api/funcionarios/<int:cpf>', views.funcionarios_modificar),
+    path('api/funcionarios/<str:cpf>', views.funcionarios_modificar),
     path('api/login/gerentes/', views.gerente_login),
     path('api/login/funcionarios/', views.funcionario_login),
     path('api/relatorio', views.relatorio),
