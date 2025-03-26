@@ -35,16 +35,14 @@ export default function UserPage() {
   };
 
   return (
-    <div className="Container h-[720px]">
-      <div className="Padding">
-        <div className="h-full flex flex-col items-end absolute top-[3vh] right-[3vh]">
+    <div className="bg-[#D0D6E2] h-screen flex items-center justify-center w-screen">
+      {/* <div className="Padding"> */}
+        <div className="p-10 w-[80%] rounded-md bg-[#0E123F] h-[80%] flex justify-between gap-6 ">
           
-          <div className="h-full">
-           <Sidebar/>
-          </div>
-        </div>
+          
+        {/* </div> */}
 
-        <div className="flex-1 p-10 overflow-y-auto bg-white rounded-md mr-[16.5rem] mt-[2rem] mb-[2rem] ml-[2rem]">
+        <div className="p-10 w-full overflow-y-auto bg-white rounded-md">
 
           <h2 className="text-2xl font-bold mb-6">Dashboard & Relatórios</h2>
 
@@ -61,7 +59,9 @@ export default function UserPage() {
             <HistoricoInfracoes />
           </div>
         </div>
-
+        {/* <div className="h-full"> */}
+           <Sidebar/>
+          {/* </div> */}
 
       </div>
     </div>

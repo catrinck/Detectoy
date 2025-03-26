@@ -66,16 +66,21 @@ const GerenciarUsuarios = () => {
     };
 
     return (
-        <div >
+        <div className="">
             {usuarios.length > 0 ? (
-                <div className="min-w-635px item-start grid grid-cols-3 gap-4 overflow-scroll h-full">
+                <div className="min-w-635px item-start grid grid-cols-3 gap-4 overflow-auto h-[500px] ">
                     {usuarios.map((usuario) => (
-                        <CardUser 
-                            key={usuario.cpf}
-                            usuario={usuario}
-                            onShowEquipament={editUsuario}
-                            deleteUser={deleteUser}
-                        />
+
+                        <>
+                            <CardUser
+                                key={usuario.cpf}
+                                usuario={usuario}
+                                onShowEquipament={editUsuario}
+                                deleteUser={deleteUser}
+
+                            />
+                           
+                        </>
                     ))}
                 </div>
             ) : (

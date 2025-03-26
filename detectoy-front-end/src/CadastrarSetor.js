@@ -37,8 +37,8 @@ export default function CadastrarSetor({ handleSubmit }) {
     };
 
     return (
-        <div className='h-[720px]'>
-            <div className='p-10 m-20 rounded-md bg-[#0E123F] h-full flex flex-1'>
+        <div className='h-screen bg-[#D0D6E2] flex items-center justify-center w-screen'>
+            <div className='p-10 w-[80%] rounded-md bg-[#0E123F] h-[80%] flex justify-between gap-6'>
 
                 <div className='bg-white rounded-md h-full w-[81.75rem] p-12'>
                     <header className='flex flex-1'>
@@ -75,7 +75,7 @@ export default function CadastrarSetor({ handleSubmit }) {
 
                 </div>
 
-                <div className='p-2 m-2 '>
+                <div className='p-2 '>
 
                     <SideBar />
 
