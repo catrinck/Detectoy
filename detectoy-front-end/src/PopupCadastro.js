@@ -53,7 +53,7 @@ function PopupCadastro({ onClose }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.post("http://127.0.0.1:8000/api/funcionarios/", usuario);
+            await axios.post("http://127.0.0.1:8000/api/gerentes/", usuario);
             setShowSuccessPopup(true);  // Mostra o pop-up de sucesso
         } catch (error) {
             setErrorMessage("CPF ou email inválidos!");
