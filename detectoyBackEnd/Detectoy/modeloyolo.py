@@ -1,79 +1,73 @@
+from fastapi import FastAPI, UploadFile, File, WebSocket
+from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
 import cv2
+import numpy as np
 import os
+import uuid
+from datetime import datetime
 from ultralytics import YOLO
+import asyncio
 
-config = {
-    'CONFIDENCE_THRESHOLD' : 0.35,
-    'MODEL_PATH' : os.path.join(os.path.dirname(__file__), "models", "banana.pt"),
-    'IMAGE_DIR' : os.path.join(os.path.dirname(__file__), "images"),
-    'OUTPUT_DIR' : os.path.join(os.path.dirname(__file__), "results")
+app = FastAPI()
+
+# Configurações
+CONFIG = {
+    'CONFIDENCE_THRESHOLD': 0.35,
+    'MODEL_PATH': os.path.join("models", "thebest.pt"),
+    'OUTPUT_DIR': "results",
+    'SAVE_INTERVAL_MS': 10,
+    'TARGET_CLASSES': ['tela_quebrada', 'carcaca_quebrada']
 }
 
-# Reads an image name like TYPE-LINE_YYYY-MM-DD-MM-SS-mmmm
-def process_image(image_name: str, config: dict = config):
-    os.makedirs(config['IMAGE_DIR'], exist_ok=True)
-    os.makedirs(config['OUTPUT_DIR'], exist_ok=True)
+model = YOLO(CONFIG['MODEL_PATH'])
 
-    print("\nStarted processing with the following config:")
-    print("-----")
-    for key, value in config.items():
-        print(key, " : ", value)
-    print("-----")
+class ConnectionManager:
+    def __init__(self):
+        self.active_connections = []
 
-    print("Loading model...")
-    model = YOLO(config['MODEL_PATH'])
-    print("Model loaded.")
+    async def connect(self, websocket: WebSocket):
+        await websocket.accept()
+        self.active_connections.append(websocket)
 
-    print("Setting image path...")
-    image_path = os.path.join(config['IMAGE_DIR'], image_name)
-    print("Image path set.")
+    async def broadcast(self, data: dict):
+        for connection in self.active_connections:
+            await connection.send_json(data)
 
-    print(f"Loading image in {image_path}")
-    image = cv2.imread(image_path)
-    if image is None:
-        print(f"Couldn't load image in {image_path}")
-        raise TypeError(f"Couldn't load image in {image_path}")
-    print("Image loaded.")
+manager = ConnectionManager()
 
-    print("Analyzing image...")
-    results = model(str(image_path), conf=config['CONFIDENCE_THRESHOLD'])[0]
-    print("Image analyzed.")
-
-    print("Plotting analysis...")
-    annotated_image = results.plot()
-    print("Analysis plotted.")
-
-    print("Writing image...")
-    output_path = os.path.join(config['OUTPUT_DIR'], image_name)
-    cv2.imwrite(str(output_path), annotated_image)
-    print(f"Image written in {output_path}")
-
+@app.post("/detect/")
+async def detect_objects(file: UploadFile = File(...)):
+    image_data = await file.read()
+    image = cv2.imdecode(np.frombuffer(image_data, np.uint8), cv2.IMREAD_COLOR)
+    
+    results = model(image)[0]
     detected_classes = [model.names[int(box.cls)] for box in results.boxes]
-
-    errors = {
-        'broken_screen' : False,
-        'broken_shell' : False
+    
+    if any(cls in CONFIG['TARGET_CLASSES'] for cls in detected_classes):
+        filename = f"{datetime.now().strftime('%Y%m%d-%H%M%S')}-{uuid.uuid4().hex}.jpg"
+        output_path = os.path.join(CONFIG['OUTPUT_DIR'], filename)
+        cv2.imwrite(output_path, results.plot())
+        
+        await manager.broadcast({
+            "type": "detection",
+            "data": {
+                "broken_screen": "tela_quebrada" in detected_classes,
+                "broken_shell": "carcaca_quebrada" in detected_classes,
+                "image_url": f"/results/{filename}"
+            }
+        })
+    
+    return {
+        "broken_screen": "tela_quebrada" in detected_classes,
+        "broken_shell": "carcaca_quebrada" in detected_classes
     }
 
-    if "tela_quebrada" in detected_classes:
-        errors['broken_screen'] = True
+@app.websocket("/ws")
+async def websocket_endpoint(websocket: WebSocket):
+    await manager.connect(websocket)
+    while True:
+        await websocket.receive_text() 
 
-    if "carcaca_quebrada" in detected_classes:
-        errors['broken_shell'] = True
-
-    print("Results of analysis:\n-----")
-    for key, value in errors.items():
-        print(key, " : ", value)
-    print("-----")
-
-    return errors
-
-if __name__=='__main__':
-    images_names = ["img1.jpg",
-                    "img2.jpg",
-                    "img3.jpg",
-                    "img4.jpg"
-                    ]
-
-    for image_name in images_names:
-        print(process_image(image_name))
+app.mount("/results", StaticFiles(directory="results"), name="results")
+app.mount("/", StaticFiles(directory="static"), name="static")

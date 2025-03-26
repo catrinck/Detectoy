@@ -1,70 +1,54 @@
-import psycopg
+import psycopg2
+from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 
-user = "postgres"
-password = "12345678"
+# Configurações
+DB_NAME = "detectoy"
+DB_USER = "postgres"  # Altere se necessário
+DB_PASSWORD = "12345678"  # Altere para sua senha
+DB_HOST = "localhost"
+DB_PORT = "5432"
 
-print("Connecting to database with user=" + user + " and password=" + password)
-
-conn = psycopg.connect("user=" + user + " password=" + password)
-conn.autocommit = True
-
-print("Connection succeeded")
-
-with conn:
-    with conn.cursor() as curs:
-        print("Dropping database 'detectoy' if exists.")
-
-        curs.execute('''DROP DATABASE IF EXISTS detectoy;''')
-
-        print("Database 'detectoy' dropped. Re-creating it.")
-
-        curs.execute('''CREATE DATABASE detectoy
-                        WITH
-                        OWNER = postgres
-                        ENCODING = 'UTF8'
-                        TABLESPACE = pg_default
-                        CONNECTION LIMIT = -1
-                        IS_TEMPLATE = False;
-                    '''
-                     )
+def setup_database():
+    try:
+        # Conecta ao PostgreSQL
+        conn = psycopg2.connect(
+            user=DB_USER,
+            password=DB_PASSWORD,
+            host=DB_HOST,
+            port=DB_PORT
+        )
+        conn.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
+        cursor = conn.cursor()
         
-        print("Database 'detectoy' created.")
-        print("Dropping role 'detectoy' if exists.")
-
-        curs.execute('''DROP ROLE IF EXISTS detectoy;''')
-
-        print("Role 'detectoy' dropped. Re-creating it.")
-
-        curs.execute('''CREATE ROLE detectoy WITH
-                        LOGIN
-                        NOSUPERUSER
-                        INHERIT
-                        NOCREATEDB
-                        NOCREATEROLE
-                        NOREPLICATION
-                        NOBYPASSRLS
-                        ENCRYPTED PASSWORD 'SCRAM-SHA-256$4096:jr0AVFrIBxRzm83tfd8GXg==$c0m2+mkiSy7LizjEroS+aD4oSPFVwxYMC9wLiQTpK00=:yN3vNrjXOvyaldTJFRTcfABzTq/8Q441QbPw/jL4NxA=';
-                      '''
-                     )
+        # Cria o banco de dados
+        cursor.execute(f"DROP DATABASE IF EXISTS {DB_NAME}")
+        cursor.execute(f"CREATE DATABASE {DB_NAME}")
+        print(f"Banco de dados '{DB_NAME}' criado com sucesso!")
         
-        print("Role 'detectoy' created.")
-        print("Granting permissions to role.")
-
-        curs.execute('''GRANT TEMPORARY, CONNECT ON DATABASE detectoy TO PUBLIC;
-                        GRANT ALL ON DATABASE detectoy TO detectoy;
-                        GRANT ALL ON DATABASE detectoy TO postgres;
-                        GRANT postgres TO detectoy;
-                        ALTER ROLE detectoy SET client_encoding TO 'utf8';
-                        ALTER ROLE detectoy SET default_transaction_isolation TO 'READ COMMITTED';
-                        ALTER ROLE detectoy SET TimeZone TO 'UTC';
-                    '''
-                    )
+        # Cria o usuário do banco
+        cursor.execute("DROP ROLE IF EXISTS detectoy")
+        cursor.execute("""
+            CREATE ROLE detectoy WITH
+            LOGIN
+            NOSUPERUSER
+            NOCREATEDB
+            NOCREATEROLE
+            INHERIT
+            NOREPLICATION
+            CONNECTION LIMIT -1
+            PASSWORD 'detectoy';
+        """)
         
-        print("Permissions granted.")
-
-        print("Closing connection.")
+        # Concede privilégios
+        cursor.execute(f"GRANT ALL PRIVILEGES ON DATABASE {DB_NAME} TO detectoy")
+        print("Usuário 'detectoy' criado e privilégios concedidos!")
         
-conn.close()
+    except Exception as e:
+        print(f"Erro: {e}")
+    finally:
+        if conn:
+            cursor.close()
+            conn.close()
 
-print("Connection closed.")
-print("Terminating.")
+if __name__ == "__main__":
+    setup_database()
