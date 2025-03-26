@@ -1,1 +1,1 @@
-# This file can be empty, but it must exist. It tells FastAPI that the app directory is a Python package.
+# Este arquivo pode estar vazio, mas é necessário para que o Python reconheça o diretório como um pacote

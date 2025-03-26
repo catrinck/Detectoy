@@ -1,8 +1,30 @@
-# virtual environment
-.venv
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+ENV/
 
-# Jetbrains IDE
-.idea
+# Environment variables
+.env
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Project specific
+results/
+app/static/detections/
+*.pt
+*.pth
+*.onnx
+
+# Logs
+*.log
 
 # Imagens e relatorios
 

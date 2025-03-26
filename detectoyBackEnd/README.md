@@ -1,98 +1,54 @@
-# detectoyBackEnd
-## 1. Como rodar o servidor na própria máquina
+# Detectoy Backend
 
-Eu recomendo que você crie um ambiente virtual para fazer isso :)
+API FastAPI para detecção de defeitos em dispositivos móveis.
 
-### 1.1 Abra o terminal no diretório do projeto
+## Requisitos
 
-Abra o terminal no seu computador e depois use o seguinte comando:\
-```cd <diretorio-do-projeto>```\
-Onde está ```<diretorio-do-projeto>``` você deve pôr o caminho da pasta detectoyBackEnd no seu computador.\
-No final o resultado deve ser algo semelhante a isso:\
-```C:\Users\user\Detectoy\detectoyBackEnd```
+- Python 3.8+
+- PostgreSQL
+- CUDA (opcional, para GPU)
 
-### 1.2. Baixe os requisitos do projeto
+## Instalação
 
-Execute o seguinte comando no terminal (diretorio do projeto):\
-```pip install -r requirements.txt```
-
-```pip install djangorestframework-simplejwt```
-
-
-### 1.3. Configurando o banco de dados
-
-Para configurar o banco de dados, veririfque o login do postgres em ```db_setup.py```.\
-Os valores padrões de login e senha são "postgres" e "12345678", respectivamente.\
-Altere para os valores que você definiu quando instalou o postgres.\
-Execute o seguinte comando no terminal (diretorio do projeto):\
-```python db_setup.py```
-
-### 1.4. Rodando o servidor
-
-Execute o seguinte comando no terminal (diretorio do projeto):\
-```python manage.py runserver```
-
-## 2. Utilizando a API
-
-Após ter iniciado o servidor, abra o navegador e acesse http://127.0.0.1:8000/.
-
-### 2.1. GET e POST
-
-Para utilizar os métodos GET e POST dos gerentes vá a http://127.0.0.1:8000/api/gerentes/. \
-Para utilizar os métodos GET e POST dos usuários vá a http://127.0.0.1:8000/api/usuarios/. 
-
-O GET é feito automaticamente ao entrar no site e aparece logo no início.
-
-Logo abaixo do campo de GET, tem um espaço em que você pode escrever o POST. \
-O POST é feito com o formato json da classe.\
-Para criar um gerente, você coloca no campo de POST algo nesse formato:
-```json
-{
-        "cpf": 99538199200,
-        "nome": "Pedro Ituassú",
-        "email": "pcmi.eng23@uea.edu.br",
-        "senha": "xxxx"
-}
-```
-Para criar um usuário, você coloca no campo de POST algo nesse formato:
-```json
-{
-        "cpf": 99538199200,
-        "nome": "Pedro Ituassú",
-        "email": "pcmi.eng23@uea.edu.br",
-        "senha": "xxxx",
-        "cameras": false,
-        "relatorios": false
-    }
+1. Clone o repositório
+2. Crie um ambiente virtual:
+```bash
+python -m venv venv
+source venv/bin/activate  # Linux/Mac
+venv\Scripts\activate     # Windows
 ```
 
-### 2.2. PUT e DELETE
-
-Para utilizar os métodos PUT e DELETE dos gerentes vá a http://127.0.0.1:8000/api/gerentes/cpf \
-Para utilizar os métodos PUT e DELETE dos gerentes vá a http://127.0.0.1:8000/api/gerentes/cpf \
-No lugar de cpf você deve colocar o cpf do Gerente ou Usuário que deseja acessar.
-
-Para utilizar o DELETE, aperte no botão DELETE na parte superior do site.
-
-Da mesma maneira que na página de GET e POST, tem um espaço em que você pode escrever o PUT. \
-O PUT é feito com o formato json da classe.\
-Para modificar um gerente, você coloca no campo de PUT algo nesse formato:
-```json
-{
-        "cpf": 99538199200,
-        "nome": "Pedro Ituassú",
-        "email": "pcmi.eng23@uea.edu.br",
-        "senha": "pedroituassu"
-}
+3. Instale as dependências:
+```bash
+pip install -r requirements.txt
 ```
-Para modificar um usuário, você coloca no campo de PUT algo nesse formato:
-```json
-{
-        "cpf": 99538199200,
-        "nome": "Pedro Ituassú",
-        "email": "pcmi.eng23@uea.edu.br",
-        "senha": "xxxx",
-        "cameras": false,
-        "relatorios": false
-    }
+
+4. Configure o banco de dados:
+```bash
+python db_setup.py
 ```
+
+5. Configure as variáveis de ambiente:
+- Copie o arquivo `.env.example` para `.env`
+- Ajuste as variáveis conforme necessário
+
+## Executando o servidor
+
+```bash
+python run.py
+```
+
+O servidor estará disponível em `http://localhost:8000`
+
+## Documentação da API
+
+- Swagger UI: `http://localhost:8000/docs`
+- ReDoc: `http://localhost:8000/redoc`
+
+## Endpoints
+
+- `/api/v1/detections` - Detecção de imagens
+- `/api/v1/camera/stream` - Stream de câmera
+- `/api/v1/users` - Gerenciamento de usuários
+- `/api/v1/auth` - Autenticação
+- `/api/v1/reports` - Relatórios

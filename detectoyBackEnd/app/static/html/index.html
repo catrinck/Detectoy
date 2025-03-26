@@ -34,6 +34,14 @@
             padding: 2px 5px;
             border-radius: 3px;
         }
+        .note {
+            background: #fff3cd;
+            border: 1px solid #ffeeba;
+            color: #856404;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
     </style>
 </head>
 <body>
@@ -42,7 +50,31 @@
 
     <div class="endpoint">
         <h3>Documentação</h3>
-        <p>Acesse a documentação interativa em: <a href="/docs">/docs</a></p>
+        <p>Acesse a documentação interativa em: <a href="/docs">/docs</a> ou em <a href="/redoc">/redoc</a></p>
+    </div>
+
+    <div class="endpoint">
+        <h3>Webcam</h3>
+        <ul>
+            <li>
+                <span class="method get">GET</span>
+                <code>/api/v1/webcam/start</code>
+                <p>Inicia a captura da webcam</p>
+            </li>
+            <li>
+                <span class="method get">GET</span>
+                <code>/api/v1/webcam/stop</code>
+                <p>Para a captura da webcam</p>
+            </li>
+            <li>
+                <span class="method get">GET</span>
+                <code>/api/v1/webcam/frame</code>
+                <p>Captura um frame da webcam e faz a detecção</p>
+            </li>
+        </ul>
+        <div class="note">
+            <strong>Nota:</strong> A webcam captura frames a cada 500ms e salva automaticamente quando detecta defeitos.
+        </div>
     </div>
 
     <div class="endpoint">
@@ -51,6 +83,7 @@
             <li>
                 <span class="method post">POST</span>
                 <code>/api/v1/detections</code>
+                <p>Upload de imagem para detecção de defeitos</p>
             </li>
         </ul>
     </div>
@@ -58,38 +91,38 @@
     <div class="endpoint">
         <h3>Gerenciamento de Gerentes</h3>
         <ul>
-            <li><span class="method get">GET</span> <code>/api/gerentes/</code> - Listar todos os gerentes</li>
-            <li><span class="method post">POST</span> <code>/api/gerentes/</code> - Criar novo gerente</li>
-            <li><span class="method get">GET</span> <code>/api/gerentes/{cpf}</code> - Obter gerente específico</li>
-            <li><span class="method put">PUT</span> <code>/api/gerentes/{cpf}</code> - Atualizar gerente</li>
-            <li><span class="method delete">DELETE</span> <code>/api/gerentes/{cpf}</code> - Remover gerente</li>
+            <li><span class="method get">GET</span> <code>/api/v1/gerentes/</code> - Listar todos os gerentes</li>
+            <li><span class="method post">POST</span> <code>/api/v1/gerentes/</code> - Criar novo gerente</li>
+            <li><span class="method get">GET</span> <code>/api/v1/gerentes/{cpf}</code> - Obter gerente específico</li>
+            <li><span class="method put">PUT</span> <code>/api/v1/gerentes/{cpf}</code> - Atualizar gerente</li>
+            <li><span class="method delete">DELETE</span> <code>/api/v1/gerentes/{cpf}</code> - Remover gerente</li>
         </ul>
     </div>
 
     <div class="endpoint">
         <h3>Gerenciamento de Funcionários</h3>
         <ul>
-            <li><span class="method get">GET</span> <code>/api/funcionarios/</code> - Listar todos os funcionários</li>
-            <li><span class="method post">POST</span> <code>/api/funcionarios/</code> - Criar novo funcionário</li>
-            <li><span class="method get">GET</span> <code>/api/funcionarios/{cpf}</code> - Obter funcionário específico</li>
-            <li><span class="method put">PUT</span> <code>/api/funcionarios/{cpf}</code> - Atualizar funcionário</li>
-            <li><span class="method delete">DELETE</span> <code>/api/funcionarios/{cpf}</code> - Remover funcionário</li>
+            <li><span class="method get">GET</span> <code>/api/v1/funcionarios/</code> - Listar todos os funcionários</li>
+            <li><span class="method post">POST</span> <code>/api/v1/funcionarios/</code> - Criar novo funcionário</li>
+            <li><span class="method get">GET</span> <code>/api/v1/funcionarios/{cpf}</code> - Obter funcionário específico</li>
+            <li><span class="method put">PUT</span> <code>/api/v1/funcionarios/{cpf}</code> - Atualizar funcionário</li>
+            <li><span class="method delete">DELETE</span> <code>/api/v1/funcionarios/{cpf}</code> - Remover funcionário</li>
         </ul>
     </div>
 
     <div class="endpoint">
         <h3>Autenticação</h3>
         <ul>
-            <li><span class="method post">POST</span> <code>/api/login/gerentes/</code> - Login de gerentes</li>
-            <li><span class="method post">POST</span> <code>/api/login/funcionarios/</code> - Login de funcionários</li>
+            <li><span class="method post">POST</span> <code>/api/v1/login/gerentes/</code> - Login de gerentes</li>
+            <li><span class="method post">POST</span> <code>/api/v1/login/funcionarios/</code> - Login de funcionários</li>
         </ul>
     </div>
 
     <div class="endpoint">
         <h3>Relatórios</h3>
         <ul>
-            <li><span class="method get">GET</span> <code>/api/relatorio</code> - Gerar relatório</li>
-            <li><span class="method get">GET</span> <code>/api/erro</code> - Listar erros</li>
+            <li><span class="method get">GET</span> <code>/api/v1/relatorio</code> - Gerar relatório</li>
+            <li><span class="method get">GET</span> <code>/api/v1/erro</code> - Listar erros</li>
         </ul>
     </div>
 
@@ -97,7 +130,7 @@
         <h3>Exemplos de Requisições</h3>
         <h4>Criar Gerente:</h4>
         <pre>
-POST /api/gerentes/
+POST /api/v1/gerentes/
 {
     "cpf": "99538199200",
     "nome": "Pedro Ituassú",
@@ -107,7 +140,7 @@ POST /api/gerentes/
 
         <h4>Criar Funcionário:</h4>
         <pre>
-POST /api/funcionarios/
+POST /api/v1/funcionarios/
 {
     "cpf": "99538199200",
     "nome": "Pedro Ituassú",
@@ -119,7 +152,7 @@ POST /api/funcionarios/
 
         <h4>Login:</h4>
         <pre>
-POST /api/login/gerentes/
+POST /api/v1/login/gerentes/
 {
     "email": "pcmi.eng23@uea.edu.br",
     "senha": "xxxx"
@@ -130,9 +163,10 @@ POST /api/login/gerentes/
         <h3>Status da API</h3>
         <ul>
             <li>Versão: v1</li>
-            <li>Modelo: YOLOv10</li>
+            <li>Modelo: YOLOv10</li>   
             <li>Banco de Dados: PostgreSQL</li>
             <li>Autenticação: JWT</li>
+            <li>Host: 127.0.0.1:8000</li>
         </ul>
     </div>
 </body>
