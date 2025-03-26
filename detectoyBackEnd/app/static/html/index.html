@@ -8,30 +8,110 @@
             max-width: 800px;
             margin: 0 auto;
             padding: 20px;
+            background-color: #f5f5f5;
         }
         .endpoint {
-            background: #f5f5f5;
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 5px;
+            background: white;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
+        .method {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+        .get { background: #61affe; color: white; }
+        .post { background: #49cc90; color: white; }
+        .put { background: #fca130; color: white; }
+        .delete { background: #f93e3e; color: white; }
+        .ws { background: #7d3c98; color: white; }
     </style>
 </head>
 <body>
     <h1>Detectoy API</h1>
-    <p>Welcome to the Detectoy API. Available endpoints:</p>
+    <p>Bem-vindo à API do Detectoy. Endpoints disponíveis:</p>
     
     <div class="endpoint">
-        <h3>API Documentation</h3>
-        <p>Access the interactive API documentation at <a href="/docs">/docs</a></p>
+        <h3>Documentação</h3>
+        <p>Acesse a documentação interativa da API em: <a href="/docs">/docs</a></p>
     </div>
 
     <div class="endpoint">
-        <h3>Detection Endpoints</h3>
+        <h3>Detecção de Objetos</h3>
         <ul>
-            <li>POST /api/v1/detections/ - Upload and analyze an image</li>
-            <li>WS /api/v1/camera/stream - Real-time camera stream</li>
+            <li><span class="method post">POST</span> /api/v1/detections/ - Upload e análise de imagem</li>
+            <li><span class="method ws">WS</span> /api/v1/camera/stream - Stream de câmera em tempo real</li>
         </ul>
+    </div>
+
+    <div class="endpoint">
+        <h3>Gerenciamento de Gerentes</h3>
+        <ul>
+            <li><span class="method get">GET</span> /api/v1/gerentes/ - Listar todos os gerentes</li>
+            <li><span class="method post">POST</span> /api/v1/gerentes/ - Criar novo gerente</li>
+            <li><span class="method get">GET</span> /api/v1/gerentes/{cpf} - Obter gerente específico</li>
+            <li><span class="method put">PUT</span> /api/v1/gerentes/{cpf} - Atualizar gerente</li>
+            <li><span class="method delete">DELETE</span> /api/v1/gerentes/{cpf} - Remover gerente</li>
+        </ul>
+    </div>
+
+    <div class="endpoint">
+        <h3>Gerenciamento de Usuários</h3>
+        <ul>
+            <li><span class="method get">GET</span> /api/funcionarios/ - Listar todos os usuários</li>
+            <li><span class="method post">POST</span> /api/funcionarios/ - Criar novo usuário</li>
+            <li><span class="method get">GET</span> /api/funcionarios/{cpf} - Obter usuário específico</li>
+            <li><span class="method put">PUT</span> /api/funcionarios/{cpf} - Atualizar usuário</li>
+            <li><span class="method delete">DELETE</span> /api/funcionarios/{cpf} - Remover usuário</li>
+        </ul>
+    </div>
+
+    <div class="endpoint">
+        <h3>Autenticação</h3>
+        <ul>
+            <li><span class="method post">POST</span> /api/login/gerentes/ - Login de gerentes</li>
+            <li><span class="method post">POST</span> /api/login/funcionarios/ - Login de funcionários</li>
+        </ul>
+    </div>
+
+    <div class="endpoint">
+        <h3>Relatórios</h3>
+        <ul>
+            <li><span class="method get">GET</span> /api/relatorio - Gerar relatório</li>
+            <li><span class="method get">GET</span> /api/erro - Listar erros</li>
+        </ul>
+    </div>
+
+    <div class="endpoint">
+        <h3>Exemplos de Requisições</h3>
+        <h4>Criar Gerente:</h4>
+        <pre>
+POST /api/gerentes/
+{
+    "cpf": 99538199200,
+    "nome": "Pedro Ituassú",
+    "email": "pcmi.eng23@uea.edu.br",
+    "senha": "xxxx"
+}
+        </pre>
+
+        <h4>Criar Usuário:</h4>
+        <pre>
+POST /api/funcionarios/
+{
+    "cpf": 99538199200,
+    "nome": "Pedro Ituassú",
+    "email": "pcmi.eng23@uea.edu.br",
+    "senha": "xxxx",
+    "cameras": false,
+    "relatorios": false
+}
+        </pre>
     </div>
 </body>
 </html>
