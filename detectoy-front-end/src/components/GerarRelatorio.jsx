@@ -1,10 +1,17 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 export default function GerarRelatorio() {
+    const [isGenerating, setIsGenerating] = useState(false);
     
     const handleSubmit = (e) =>  {
-        e.preventDefault()
-        console.log("bobao")
+        e.preventDefault();
+        setIsGenerating(true);
+        
+        // Aqui iria a lógica de geração de relatório
+        setTimeout(() => {
+            setIsGenerating(false);
+            // Adicionar lógica para exibir o relatório gerado
+        }, 1000);
     }
 
     return (
@@ -38,7 +45,14 @@ export default function GerarRelatorio() {
             </form>
         </div>
         <div className='flex justify-end mt-2'>
-            <button type='submit' onClick={handleSubmit} className='bg-[#AE91E9] text-white rounded-full py-1 px-8'>Gerar</button>
+            <button 
+                type='submit' 
+                onClick={handleSubmit} 
+                className='bg-[#AE91E9] text-white rounded-full py-1 px-8'
+                disabled={isGenerating}
+            >
+                {isGenerating ? 'Gerando...' : 'Gerar'}
+            </button>
         </div>
     </div>
     </div>

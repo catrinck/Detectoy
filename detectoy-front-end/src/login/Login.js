@@ -8,26 +8,39 @@ const Login = () => {
     const [senha, setSenha] = useState("");
     const [showPassword, setShowPassword] = useState(false);
     const [error, setError] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate(); // Hook para redirecionamento
 
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
     };
 
+    const handleCpfChange = (e) => {
+        setCpf(e.target.value);
+    };
+
+    const handleSenhaChange = (e) => {
+        setSenha(e.target.value);
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault(); // Evita recarregar a página
+        setError("");
+        setIsLoading(true);
 
         const loginData = {
-            cpf: cpf,
+            email: cpf, // Usando cpf como email por enquanto
             senha: senha
         };
 
         try {
-            const response = await axios.post("http://localhost:8000/api/login/gerentes/", loginData);
+            // URL corrigida para apontar para a porta 8080 e caminho correto da API
+            const response = await axios.post("http://localhost:8080/api/v1/login/gerentes/", loginData);
 
             if (response.status === 200) {
-                // Se o login for bem-sucedido, pode salvar um token JWT se houver
-                localStorage.setItem("token", response.data.token);
+                // Se o login for bem-sucedido, salva o token JWT
+                localStorage.setItem("token", response.data.access_token);
+                localStorage.setItem("userData", JSON.stringify(response.data.user_data));
                 navigate("/tela-inicial"); // Redireciona para a tela inicial
             }
         } catch (error) {
@@ -35,12 +48,18 @@ const Login = () => {
             if (error.response) {
                 if (error.response.status === 400 || error.response.status === 401) {
                     setError("CPF ou senha incorretos. Tente novamente.");
+                } else if (error.response.status === 500) {
+                    setError("Erro no servidor. Verifique se o servidor backend está em execução.");
                 } else {
-                    setError("Erro no servidor. Tente mais tarde.");
+                    setError(`Erro no servidor (${error.response.status}). Tente mais tarde.`);
                 }
+            } else if (error.request) {
+                setError("Não foi possível conectar ao servidor. Verifique sua conexão.");
             } else {
-                setError("Erro ao conectar com o servidor.");
+                setError("Erro ao processar a requisição. Tente novamente.");
             }
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -54,10 +73,11 @@ const Login = () => {
 
                     <div className="input-box">
                         <input 
-                            placeholder="CPF" 
+                            placeholder="CPF ou Email" 
                             type="text" 
                             value={cpf}
-                            onChange={(e) => setCpf(e.target.value)}
+                            onChange={handleCpfChange}
+                            disabled={isLoading}
                         />
                     </div>
 
@@ -66,7 +86,8 @@ const Login = () => {
                             placeholder="Senha"
                             type={showPassword ? "text" : "password"}
                             value={senha}
-                            onChange={(e) => setSenha(e.target.value)}
+                            onChange={handleSenhaChange}
+                            disabled={isLoading}
                         />
                         <i
                             className={`bi ${showPassword ? "bi-eye-slash" : "bi-eye"}`}
@@ -76,8 +97,12 @@ const Login = () => {
                         ></i>
                     </div>
 
-                    <button type="submit" className="bg-blue-500 text-white px-6 py-2 rounded-full hover:bg-blue-600 transition">
-                        Entrar
+                    <button 
+                        type="submit" 
+                        className="bg-blue-500 text-white px-6 py-2 rounded-full hover:bg-blue-600 transition"
+                        disabled={isLoading}
+                    >
+                        {isLoading ? "Entrando..." : "Entrar"}
                     </button>
                 </form>
             </div>

@@ -1,17 +1,39 @@
 import React, { useState } from 'react'
 import GenericInput from './GenericInput'
-import Camera from './Camera';
-
 
 export default function DadosSetor() {
     const [nome, setNome] = useState("");
     const [error, setError] = useState("");
     const [camera, setCamera] = useState("");
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
+    const handleNomeChange = (value) => {
+        setNome(value);
+    };
+
+    const handleCameraChange = (value) => {
+        setCamera(value);
+    };
 
     const handleSubmit = (e) => {
-        e.preventDefault()
-        setError("")
-        console.log("peru")
+        e.preventDefault();
+        setError("");
+        
+        // Validação básica
+        if (!nome.trim()) {
+            setError("Nome do setor é obrigatório");
+            return;
+        }
+        
+        setIsSubmitting(true);
+        
+        // Aqui iria a lógica de criação do setor com chamada à API
+        setTimeout(() => {
+            setIsSubmitting(false);
+            // Reset dos campos após o sucesso
+            setNome("");
+            setCamera("");
+        }, 1000);
     }
 
     return (
@@ -30,24 +52,36 @@ export default function DadosSetor() {
                         <GenericInput className=""
                             campo="Nome do Setor"
                             value={nome}
-                            onChange={setNome} />
+                            onChange={handleNomeChange} />
 
                         <div className='flex items-end  '>
                             <GenericInput
                                 campo="Câmeras"
                                 value={camera}
-                                onChange={setCamera} />
+                                onChange={handleCameraChange} />
 
-                            <button className='rounded-lg border-2 border-grey p-2 h-10 mb-5'>Adicionar Câmera</button>
+                            <button 
+                                type="button" 
+                                className='rounded-lg border-2 border-grey p-2 h-10 mb-5'
+                            >
+                                Adicionar Câmera
+                            </button>
                         </div>
                     </div>
-                   
-
                 </div>
 
+                <div className="flex justify-end px-5 pb-3">
+                    <button 
+                        type="submit" 
+                        className='rounded-lg bg-[#AE91E9] text-white p-2 px-5'
+                        disabled={isSubmitting}
+                    >
+                        {isSubmitting ? 'Salvando...' : 'Salvar Setor'}
+                    </button>
+                </div>
 
                 {/* Mensagem de erro */}
-                {error && <p className="text-red-500 mt-2">{error}</p>}
+                {error && <p className="text-red-500 mt-2 px-5 pb-3">{error}</p>}
 
             </form>
         </div>
