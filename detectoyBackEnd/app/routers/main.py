@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
-from .routers import detections, camera, users, auth, reports
+from routers import detections, webcam, users, authentication, reports
 
 app = FastAPI(
     title="Detectoy API",
@@ -20,9 +20,9 @@ app.add_middleware(
 
 # Routers
 app.include_router(detections.router, prefix="/api/v1")
-app.include_router(camera.router, prefix="/api/v1")
+app.include_router(webcam.router, prefix="/api/v1")
 app.include_router(users.router, prefix="/api/v1")
-app.include_router(auth.router, prefix="/api/v1")
+app.include_router(authentication.router, prefix="/api/v1")
 app.include_router(reports.router, prefix="/api/v1")
 
 # Static files

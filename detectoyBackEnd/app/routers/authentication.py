@@ -25,7 +25,7 @@ class Token(BaseModel):
     user_type: str
     user_data: dict
 
-@router.post("/login/gerentes/", response_model=Token)
+@router.get("/gerentes/", response_model=Token)
 async def login_manager(login: Login, db: Session = Depends(get_db)):
     """Login de gerentes - aceita email ou CPF"""
     try:

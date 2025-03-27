@@ -23,7 +23,7 @@ const Login = () => {
         };
 
         try {
-            const response = await axios.post("http://localhost:8000/api/login/gerentes/", loginData);
+            const response = await axios.get("http://127.0.0.1:8080/api/v1/gerentes", loginData);
 
             if (response.status === 200) {
                 // Se o login for bem-sucedido, pode salvar um token JWT se houver

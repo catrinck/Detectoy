@@ -13,7 +13,7 @@ export default function Camera() {
 
     useEffect(() => {
         // Conecta ao WebSocket
-        ws.current = new WebSocket('ws://localhost:8000/api/v1/camera/stream');
+        ws.current = new WebSocket('ws://localhost:8080/api/v1/camera/stream');
 
         ws.current.onopen = () => {
             console.log('Connected to camera stream');
