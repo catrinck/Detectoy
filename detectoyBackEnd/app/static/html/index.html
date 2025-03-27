@@ -42,6 +42,32 @@
             border-radius: 4px;
             margin: 10px 0;
         }
+        .parameter {
+            margin: 5px 0;
+            padding: 5px;
+            background: #f8f9fa;
+            border-radius: 4px;
+        }
+        .response {
+            margin: 10px 0;
+            padding: 10px;
+            background: #e9ecef;
+            border-radius: 4px;
+        }
+        .example {
+            margin: 10px 0;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 4px;
+            border-left: 4px solid #61affe;
+        }
+        .curl {
+            background: #2d2d2d;
+            color: #fff;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
     </style>
 </head>
 <body>
@@ -54,27 +80,155 @@
     </div>
 
     <div class="endpoint">
+        <h3>Configuração Inicial</h3>
+        <ol>
+            <li>Instale as dependências:
+                <pre>pip install -r requirements.txt</pre>
+            </li>
+            <li>Configure o banco de dados PostgreSQL:
+                <pre>python db_setup.py</pre>
+            </li>
+            <li>Configure as variáveis de ambiente no arquivo .env:
+                <pre>DATABASE_URL=postgresql://detectoy:detectoy@localhost:8000/detectoy
+SECRET_KEY=sua_chave_secreta_aqui
+MODEL_PATH=models/thebest.pt</pre>
+            </li>
+            <li>Inicie o servidor:
+                <pre>python run.py</pre>
+            </li>
+        </ol>
+    </div>
+
+    <div class="endpoint">
+        <h3>Exemplos de Requisições</h3>
+        
+        <div class="example">
+            <h4>1. Criar um Gerente</h4>
+            <div class="curl">
+                <pre>curl -X POST "http://127.0.0.1:8080/api/v1/gerentes/" \
+-H "Content-Type: application/json" \
+-d '{
+    "cpf": "12345678900",
+    "nome": "João Silva",
+    "email": "joao@exemplo.com",
+    "senha": "senha123"
+}'</pre>
+            </div>
+        </div>
+
+        <div class="example">
+            <h4>2. Login de Gerente</h4>
+            <div class="curl">
+                <pre>curl -X POST "http://127.0.0.1:8080/api/v1/login/gerentes/" \
+-H "Content-Type: application/json" \
+-d '{
+    "email": "joao@exemplo.com",
+    "senha": "senha123"
+}'</pre>
+            </div>
+        </div>
+
+        <div class="example">
+            <h4>3. Criar um Funcionário</h4>
+            <div class="curl">
+                <pre>curl -X POST "http://127.0.0.1:8080/api/v1/funcionarios/" \
+-H "Content-Type: application/json" \
+-d '{
+    "cpf": "98765432100",
+    "nome": "Maria Santos",
+    "email": "maria@exemplo.com",
+    "senha": "senha456",
+    "cameras": true,
+    "relatorios": true
+}'</pre>
+            </div>
+        </div>
+
+        <div class="example">
+            <h4>4. Upload de Imagem para Detecção</h4>
+            <div class="curl">
+                <pre>curl -X POST "http://127.0.0.1:8080/api/v1/detections" \
+-H "Authorization: Bearer seu_token_aqui" \
+-F "file=@caminho/para/imagem.jpg"</pre>
+            </div>
+        </div>
+
+        <div class="example">
+            <h4>5. Gerar Relatório</h4>
+            <div class="curl">
+                <pre>curl -X GET "http://127.0.0.1:8080/api/v1/relatorio?start_date=2024-01-01&end_date=2024-01-31&defect_type=tela_quebrada" \
+-H "Authorization: Bearer seu_token_aqui"</pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="endpoint">
         <h3>Webcam</h3>
         <ul>
             <li>
                 <span class="method get">GET</span>
                 <code>/api/v1/webcam/start</code>
                 <p>Inicia a captura da webcam</p>
+                <div class="response">
+                    <strong>Resposta:</strong>
+                    <pre>{
+    "message": "Webcam iniciada com sucesso"
+}</pre>
+                </div>
             </li>
             <li>
                 <span class="method get">GET</span>
                 <code>/api/v1/webcam/stop</code>
                 <p>Para a captura da webcam</p>
+                <div class="response">
+                    <strong>Resposta:</strong>
+                    <pre>{
+    "message": "Webcam parada com sucesso"
+}</pre>
+                </div>
             </li>
             <li>
                 <span class="method get">GET</span>
                 <code>/api/v1/webcam/frame</code>
                 <p>Captura um frame da webcam e faz a detecção</p>
+                <div class="response">
+                    <strong>Resposta:</strong>
+                    <pre>{
+    "broken_screen": boolean,
+    "broken_shell": boolean,
+    "confidence_scores": float[],
+    "detected_classes": string[],
+    "result_image": string
+}</pre>
+                </div>
+            </li>
+            <li>
+                <span class="method get">GET</span>
+                <code>/api/v1/webcam/stream</code>
+                <p>Streaming da câmera em tempo real (MJPEG)</p>
             </li>
         </ul>
-        <div class="note">
-            <strong>Nota:</strong> A webcam captura frames a cada 500ms e salva automaticamente quando detecta defeitos.
-        </div>
+    </div>
+
+    <div class="endpoint">
+        <h3>WebSocket</h3>
+        <ul>
+            <li>
+                <span class="method get">WS</span>
+                <code>/ws/detections</code>
+                <p>WebSocket para receber detecções em tempo real</p>
+                <div class="response">
+                    <strong>Mensagem:</strong>
+                    <pre>{
+    "broken_screen": boolean,
+    "broken_shell": boolean,
+    "confidence_scores": float[],
+    "detected_classes": string[],
+    "result_image": string
+}</pre>
+                </div>
+            </li>
+        </ul>
     </div>
 
     <div class="endpoint">
@@ -84,6 +238,22 @@
                 <span class="method post">POST</span>
                 <code>/api/v1/detections</code>
                 <p>Upload de imagem para detecção de defeitos</p>
+                <div class="parameter">
+                    <strong>Parâmetros:</strong>
+                    <ul>
+                        <li>file: arquivo de imagem (multipart/form-data)</li>
+                    </ul>
+                </div>
+                <div class="response">
+                    <strong>Resposta:</strong>
+                    <pre>{
+    "broken_screen": boolean,
+    "broken_shell": boolean,
+    "confidence_scores": float[],
+    "detected_classes": string[],
+    "result_image": string
+}</pre>
+                </div>
             </li>
         </ul>
     </div>
@@ -91,72 +261,255 @@
     <div class="endpoint">
         <h3>Gerenciamento de Gerentes</h3>
         <ul>
-            <li><span class="method get">GET</span> <code>/api/v1/gerentes/</code> - Listar todos os gerentes</li>
-            <li><span class="method post">POST</span> <code>/api/v1/gerentes/</code> - Criar novo gerente</li>
-            <li><span class="method get">GET</span> <code>/api/v1/gerentes/{cpf}</code> - Obter gerente específico</li>
-            <li><span class="method put">PUT</span> <code>/api/v1/gerentes/{cpf}</code> - Atualizar gerente</li>
-            <li><span class="method delete">DELETE</span> <code>/api/v1/gerentes/{cpf}</code> - Remover gerente</li>
+            <li>
+                <span class="method get">GET</span>
+                <code>/api/v1/gerentes/</code>
+                <p>Lista todos os gerentes</p>
+                <div class="response">
+                    <strong>Resposta:</strong>
+                    <pre>[
+    {
+        "id": int,
+        "cpf": string,
+        "nome": string,
+        "email": string,
+        "created_at": datetime,
+        "updated_at": datetime
+    }
+]</pre>
+                </div>
+            </li>
+            <li>
+                <span class="method post">POST</span>
+                <code>/api/v1/gerentes/</code>
+                <p>Cria um novo gerente</p>
+                <div class="parameter">
+                    <strong>Corpo:</strong>
+                    <pre>{
+    "cpf": string,
+    "nome": string,
+    "email": string,
+    "senha": string
+}</pre>
+                </div>
+            </li>
+            <li>
+                <span class="method get">GET</span>
+                <code>/api/v1/gerentes/{cpf}</code>
+                <p>Obtém um gerente específico</p>
+            </li>
+            <li>
+                <span class="method put">PUT</span>
+                <code>/api/v1/gerentes/{cpf}</code>
+                <p>Atualiza um gerente</p>
+                <div class="parameter">
+                    <strong>Corpo:</strong>
+                    <pre>{
+    "nome": string (opcional),
+    "email": string (opcional),
+    "senha": string (opcional)
+}</pre>
+                </div>
+            </li>
+            <li>
+                <span class="method delete">DELETE</span>
+                <code>/api/v1/gerentes/{cpf}</code>
+                <p>Remove um gerente</p>
+            </li>
         </ul>
     </div>
 
     <div class="endpoint">
         <h3>Gerenciamento de Funcionários</h3>
         <ul>
-            <li><span class="method get">GET</span> <code>/api/v1/funcionarios/</code> - Listar todos os funcionários</li>
-            <li><span class="method post">POST</span> <code>/api/v1/funcionarios/</code> - Criar novo funcionário</li>
-            <li><span class="method get">GET</span> <code>/api/v1/funcionarios/{cpf}</code> - Obter funcionário específico</li>
-            <li><span class="method put">PUT</span> <code>/api/v1/funcionarios/{cpf}</code> - Atualizar funcionário</li>
-            <li><span class="method delete">DELETE</span> <code>/api/v1/funcionarios/{cpf}</code> - Remover funcionário</li>
+            <li>
+                <span class="method get">GET</span>
+                <code>/api/v1/funcionarios/</code>
+                <p>Lista todos os funcionários</p>
+                <div class="response">
+                    <strong>Resposta:</strong>
+                    <pre>[
+    {
+        "id": int,
+        "cpf": string,
+        "nome": string,
+        "email": string,
+        "cameras": boolean,
+        "relatorios": boolean,
+        "created_at": datetime,
+        "updated_at": datetime
+    }
+]</pre>
+                </div>
+            </li>
+            <li>
+                <span class="method post">POST</span>
+                <code>/api/v1/funcionarios/</code>
+                <p>Cria um novo funcionário</p>
+                <div class="parameter">
+                    <strong>Corpo:</strong>
+                    <pre>{
+    "cpf": string,
+    "nome": string,
+    "email": string,
+    "senha": string,
+    "cameras": boolean (opcional),
+    "relatorios": boolean (opcional)
+}</pre>
+                </div>
+            </li>
+            <li>
+                <span class="method get">GET</span>
+                <code>/api/v1/funcionarios/{cpf}</code>
+                <p>Obtém um funcionário específico</p>
+            </li>
+            <li>
+                <span class="method put">PUT</span>
+                <code>/api/v1/funcionarios/{cpf}</code>
+                <p>Atualiza um funcionário</p>
+                <div class="parameter">
+                    <strong>Corpo:</strong>
+                    <pre>{
+    "nome": string (opcional),
+    "email": string (opcional),
+    "senha": string (opcional),
+    "cameras": boolean (opcional),
+    "relatorios": boolean (opcional)
+}</pre>
+                </div>
+            </li>
+            <li>
+                <span class="method delete">DELETE</span>
+                <code>/api/v1/funcionarios/{cpf}</code>
+                <p>Remove um funcionário</p>
+            </li>
         </ul>
     </div>
 
     <div class="endpoint">
         <h3>Autenticação</h3>
         <ul>
-            <li><span class="method post">POST</span> <code>/api/v1/login/gerentes/</code> - Login de gerentes</li>
-            <li><span class="method post">POST</span> <code>/api/v1/login/funcionarios/</code> - Login de funcionários</li>
+            <li>
+                <span class="method post">POST</span>
+                <code>/api/v1/login/gerentes/</code>
+                <p>Login de gerentes</p>
+                <div class="parameter">
+                    <strong>Corpo:</strong>
+                    <pre>{
+    "email": string,
+    "senha": string
+}</pre>
+                </div>
+                <div class="response">
+                    <strong>Resposta:</strong>
+                    <pre>{
+    "access_token": string,
+    "token_type": string,
+    "user_type": string,
+    "user_data": {
+        "cpf": string,
+        "nome": string,
+        "email": string
+    }
+}</pre>
+                </div>
+            </li>
+            <li>
+                <span class="method post">POST</span>
+                <code>/api/v1/login/funcionarios/</code>
+                <p>Login de funcionários</p>
+                <div class="parameter">
+                    <strong>Corpo:</strong>
+                    <pre>{
+    "email": string,
+    "senha": string
+}</pre>
+                </div>
+                <div class="response">
+                    <strong>Resposta:</strong>
+                    <pre>{
+    "access_token": string,
+    "token_type": string,
+    "user_type": string,
+    "user_data": {
+        "cpf": string,
+        "nome": string,
+        "email": string,
+        "cameras": boolean,
+        "relatorios": boolean
+    }
+}</pre>
+                </div>
+            </li>
         </ul>
     </div>
 
     <div class="endpoint">
         <h3>Relatórios</h3>
         <ul>
-            <li><span class="method get">GET</span> <code>/api/v1/relatorio</code> - Gerar relatório</li>
-            <li><span class="method get">GET</span> <code>/api/v1/erro</code> - Listar erros</li>
+            <li>
+                <span class="method get">GET</span>
+                <code>/api/v1/relatorio</code>
+                <p>Gera um relatório de detecções</p>
+                <div class="parameter">
+                    <strong>Parâmetros:</strong>
+                    <ul>
+                        <li>start_date: string (YYYY-MM-DD) - Data inicial</li>
+                        <li>end_date: string (YYYY-MM-DD) - Data final</li>
+                        <li>defect_type: string - Tipo de defeito</li>
+                    </ul>
+                </div>
+                <div class="response">
+                    <strong>Resposta:</strong>
+                    <pre>{
+    "data": [
+        {
+            "id": int,
+            "defect_type": string,
+            "confidence": float,
+            "image_path": string,
+            "created_at": string,
+            "user_email": string
+        }
+    ],
+    "statistics": {
+        "total_detections": int,
+        "defects_by_type": object,
+        "average_confidence": float,
+        "detections_by_date": object
+    }
+}</pre>
+                </div>
+            </li>
+            <li>
+                <span class="method get">GET</span>
+                <code>/api/v1/erro</code>
+                <p>Lista erros de detecção</p>
+                <div class="parameter">
+                    <strong>Parâmetros:</strong>
+                    <ul>
+                        <li>start_date: string (YYYY-MM-DD) - Data inicial</li>
+                        <li>end_date: string (YYYY-MM-DD) - Data final</li>
+                    </ul>
+                </div>
+                <div class="response">
+                    <strong>Resposta:</strong>
+                    <pre>{
+    "total_errors": int,
+    "errors": [
+        {
+            "id": int,
+            "defect_type": string,
+            "confidence": float,
+            "image_path": string,
+            "created_at": string,
+            "user_email": string
+        }
+    ]
+}</pre>
+                </div>
+            </li>
         </ul>
-    </div>
-
-    <div class="endpoint">
-        <h3>Exemplos de Requisições</h3>
-        <h4>Criar Gerente:</h4>
-        <pre>
-POST /api/v1/gerentes/
-{
-    "cpf": "99538199200",
-    "nome": "Pedro Ituassú",
-    "email": "pcmi.eng23@uea.edu.br",
-    "senha": "xxxx"
-}</pre>
-
-        <h4>Criar Funcionário:</h4>
-        <pre>
-POST /api/v1/funcionarios/
-{
-    "cpf": "99538199200",
-    "nome": "Pedro Ituassú",
-    "email": "pcmi.eng23@uea.edu.br",
-    "senha": "xxxx",
-    "cameras": false,
-    "relatorios": false
-}</pre>
-
-        <h4>Login:</h4>
-        <pre>
-POST /api/v1/login/gerentes/
-{
-    "email": "pcmi.eng23@uea.edu.br",
-    "senha": "xxxx"
-}</pre>
     </div>
 
     <div class="endpoint">
@@ -166,7 +519,7 @@ POST /api/v1/login/gerentes/
             <li>Modelo: YOLOv10</li>   
             <li>Banco de Dados: PostgreSQL</li>
             <li>Autenticação: JWT</li>
-            <li>Host: 127.0.0.1:8000</li>
+            <li>Host: 127.0.0.1:8080</li>
         </ul>
     </div>
 </body>

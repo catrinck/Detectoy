@@ -8,11 +8,11 @@ def test_webcam():
         print("Câmera iniciada com sucesso")
         
         # Captura um frame
-        frame = webcam_service.get_frame()
+        frame = webcam_service.get_frame_jpeg()
         print("Frame capturado com sucesso")
         
         # Processa o frame
-        results = webcam_service.process_frame(frame)
+        results = webcam_service.process_frame_with_detection()
         print("Frame processado com sucesso")
         print("Resultados:", results)
         

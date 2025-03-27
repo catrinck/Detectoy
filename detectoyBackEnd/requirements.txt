@@ -2,8 +2,8 @@ fastapi==0.105.0
 uvicorn==0.25.0
 python-multipart==0.0.6
 python-dotenv==1.0.0
-opencv-python==4.8.1
-ultralytics==8.0.232
+opencv-python==4.8.1.78
+ultralytics==8.3.96
 numpy==1.26.2
 psycopg2-binary==2.9.9
 python-jose[cryptography]==3.3.0
@@ -11,3 +11,6 @@ passlib[bcrypt]==1.7.4
 websockets==12.0
 python-socketio==5.11.1
 aiofiles==23.2.1
+sqlalchemy==2.0.23
+pydantic[email]==2.7.0
+pandas==2.1.3
