@@ -4,11 +4,29 @@ import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { jwtDecode } from "jwt-decode";
 
 export default function SideBar() {
     const [selectedButton, setSelectedButton] = useState(null);
     const navigate = useNavigate();
     const location = useLocation();
+    const [userName, setUserName] = useState("Usuário");
+
+
+    useEffect(() => {
+        // Pega o token do localStorage
+        const token = localStorage.getItem("token");
+
+        if (token) {
+            try {
+                // Decodifica o token para obter o nome do usuário
+                const decodedToken = jwtDecode(token);
+                setUserName(decodedToken.nome || "Usuário");
+            } catch (error) {
+                console.error("Erro ao decodificar token:", error);
+            }
+        }
+    }, []);
 
     const handleLogout = () => {
         localStorage.removeItem("token"); // Remove o token JWT
@@ -31,12 +49,15 @@ export default function SideBar() {
 
 
     return (
-        <div className="flex flex-col space-y-4 ">
+        <div className="flex flex-col space-y-4 m-4 mr-0 ">
             
             <div className="bg-[#090A1C] rounded-lg shadow-md p-4 text-white w-[240px] h-[70px] flex items-center justify-center mb-12 mt-10">
-                Bem vindo, Nome Sobrenome
+                Bem vindo,&nbsp;
+                <div className="font-bold">
+                    {userName}
+                </div>
             </div>
-            
+
             <button
                 className={`w-[240px] py-2 px-4 font-bold rounded transition-all
                 ${selectedButton === "tela-inicial"
@@ -74,8 +95,21 @@ export default function SideBar() {
                 Usuários
             </button>
 
+            <button
+                className={`w-[240px] py-2 px-4 font-bold rounded transition-all
+                ${selectedButton === "Relatorio"
+                        ? "bg-[#AE91E9] text-white"
+                        : "bg-white text-[#0E123F] hover:bg-[#AE91E9] hover:text-white"
+                    }`}
+                onClick={() =>
+                    navigate("/Relatorio") //navega para users
+                }
+            >
+                Relatório
+            </button>
+
             <Link to="/Login">
-                <button className="hover:text-white bg-white hover:bg-[#AE91E9] text-[#0E123F] font-bold py-2 px-4 rounded flex items-center gap-2 absolute bottom-16 "
+                <button className="hover:text-white bg-white hover:bg-[#AE91E9] text-[#0E123F] font-bold py-2 px-4 rounded flex items-center gap-2 "
                     onClick={handleLogout}>
                     Logout
                 </button>
