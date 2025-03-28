@@ -8,6 +8,7 @@
     "clsx": "^2.1.1",
     "cra-template": "1.2.0",
     "detectoy-front-end": "file:",
+    "jwt-decode": "^4.0.0",
     "lucide-react": "^0.483.0",
     "react": "^19.0.0",
     "react-chartjs-2": "^5.3.0",

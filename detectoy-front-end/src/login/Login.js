@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./Login.css";
+import logo from "../image/logo010.svg"
+import logo2 from "../image/logoEye.svg"
+
 
 const Login = () => {
     const [cpf, setCpf] = useState("");
@@ -46,10 +49,10 @@ const Login = () => {
 
     return (
         <div className="login-page">
+            <img className="absolute bottom-12 left-8" src={logo2} alt=""/>
             <div className="container">
+            <img className="mx-auto mt-24 mb-28" src={logo} alt=""></img>
                 <form className="forms" onSubmit={handleSubmit}>
-                    <h1>Login</h1>
-
                     {error && <p className="error">{error}</p>} {/* Exibe erro */}
 
                     <div className="input-box">
@@ -76,7 +79,7 @@ const Login = () => {
                         ></i>
                     </div>
 
-                    <button type="submit" className="bg-blue-500 text-white px-6 py-2 rounded-full hover:bg-blue-600 transition">
+                    <button type="submit" className="bg-[#AE91E9] text-white px-6 py-2 rounded-full hover:bg-[#836db0] transition mt-12">
                         Entrar
                     </button>
                 </form>

@@ -6,59 +6,6 @@ function PopupCadastro({ onClose }) {
 
     const [administradorChecked, setAdministradorChecked] = useState(false);
     const [supervisorChecked, setSupervisorChecked] = useState(false);
-    const [showSuccessPopup, setShowSuccessPopup] = useState(false);
-    const [errorMessage, setErrorMessage] = useState("");
-
-    const [usuario, setUsuario] = useState({
-        cpf: "",
-        nome: "",
-        email: "",
-        senha: "",
-        log: false,
-        cameras: false,
-        relatorios: false,
-    });
-
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setUsuario((prevState) => ({
-            ...prevState,
-            [name]: value,
-        }));
-        setErrorMessage("");
-    };
-
-    const handleAdministradorChange = () => {
-        setAdministradorChecked(true);
-        setSupervisorChecked(false);
-        setUsuario({
-            ...usuario,
-            log: true,
-            cameras: true,
-            relatorios: true,
-        });
-    };
-
-    const handleSupervisorChange = () => {
-        setSupervisorChecked(true);
-        setAdministradorChecked(false);
-        setUsuario({
-            ...usuario,
-            log: false,
-            cameras: false,
-            relatorios: false,
-        });
-    };
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            await axios.post("http://127.0.0.1:8000/api/funcionarios/", usuario);
-            setShowSuccessPopup(true);  // Mostra o pop-up de sucesso
-        } catch (error) {
-            setErrorMessage("CPF ou email inválidos!");
-        }
-    };
 
     return (
         <div className="popup-overlay">

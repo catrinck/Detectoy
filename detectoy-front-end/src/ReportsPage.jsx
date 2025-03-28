@@ -33,10 +33,10 @@ export default function ReportsPage() {
 
 
     return (
-        <div className='h-[720px]'>
-            <div className='p-10 m-20 rounded-md bg-[#0E123F] h-[full] flex flex-1'>
+        <div className='h-screen bg-[#D0D6E2] flex items-center justify-center w-screen'>
+            <div className='p-10 w-[80%] rounded-md bg-[#0E123F] h-[80%] flex justify-between gap-6'>
 
-                <div className='bg-white flex flex-col items-center justify-center rounded-md h-full w-[81.75rem] p-8'>
+                <div className='bg-white flex flex-col items-center justify-center rounded-md h-full w-full p-8'>
                     <header className='flex flex-1 justify-between flex-row items-center w-full'>
                         <h1 className='text-[#0E123F] font-bold text-[28px]'>Painel de Setores</h1>
                         <div className='flex flex-1 justify-end gap-8'>
@@ -55,11 +55,11 @@ export default function ReportsPage() {
                     </div>
                 </div>
 
-                <div className='p-2 m-2 '>
+                {/* <div className='p-2 '> */}
 
                     <SideBar />
 
-                </div>
+                {/* </div> */}
 
             </div>
         </div>
