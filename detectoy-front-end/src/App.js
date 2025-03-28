@@ -11,7 +11,7 @@ import ReportsPage from "./ReportsPage";
 import PopupCadastro from "./PopupCadastro";
 import CadastrarSetor from "./CadastrarSetor";
 import ProtectedRoute from "./ProtectedRoute";
-
+import CameraStream from './components/CameraStream';
 
 function App() {
     return (
@@ -32,6 +32,7 @@ function App() {
                     <Route path="/reports" element={<ReportsPage />} />
                     <Route path="/popup-cadastro" element={<PopupCadastro />} />
                     <Route path="/CadastrarSetor" element={<CadastrarSetor />}></Route>
+                    <Route path="/camera-stream" element={<CameraStream />} />
                 </Route>
             </Routes> 
         </Router>
