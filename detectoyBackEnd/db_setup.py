@@ -6,7 +6,7 @@ logger = logging.getLogger(__name__)
 
 def setup_database():
     # Connect to default postgres database
-    postgres_engine = create_engine("postgresql://postgres:123@localhost:5432/postgres")
+    postgres_engine = create_engine("postgresql://postgres:12345678@localhost:5432/postgres")
     db_name = "detectoy"
 
     with postgres_engine.connect() as conn:
@@ -22,7 +22,7 @@ def setup_database():
         logger.info(f"Database {db_name} created successfully")
 
     # Create tables in new database
-    db_engine = create_engine("postgresql://postgres:123@localhost:5432/detectoy")
+    db_engine = create_engine("postgresql://postgres:12345678@localhost:5432/detectoy")
     from app.models import Base
     Base.metadata.create_all(db_engine)
     logger.info("Tables created successfully")

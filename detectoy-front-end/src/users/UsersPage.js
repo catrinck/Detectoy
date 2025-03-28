@@ -58,27 +58,6 @@ export default function Users() {
                     <div className='flex-1 mt-4 w-full'>
                         <div className='item-start grid grid-cols-3 gap-4 overflow-scroll h-[500px] '>
                             <CardUser/>
-                            <CardUser/>
-                            <CardUser/>
-                            <CardUser/>
-                            <CardUser/>
-                            <CardUser/>
-                            <CardUser/>
-                            <CardUser/>
-                            <CardUser/>
-                            <CardUser/>
-                            <CardUser/>
-                            <CardUser/>
-                            <CardUser/>
-                            <CardUser/>
-                            <CardUser/>
-                            <CardUser/>
-                            <CardUser/>
-                            <CardUser/>
-                            <CardUser/>
-                            <CardUser/>
-
-                            
                         </div>
                     </div>
                 </div>

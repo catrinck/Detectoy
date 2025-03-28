@@ -51,34 +51,6 @@ export default function ReportsPage() {
                     <div className='flex-1 mt-4 w-full '>
                         <div className='item-start grid grid-cols-4 gap-4 overflow-scroll h-[500px] '>
                             <CardSetor/>
-                            <CardSetor/>
-                            <CardSetor/>
-                            <CardSetor/>
-                            <CardSetor/>
-                            <CardSetor/>
-                            <CardSetor/>
-                            <CardSetor/>
-                            <CardSetor/>
-                            <CardSetor/>
-                            <CardSetor/>
-                            <CardSetor/>
-                            <CardSetor/>
-                            <CardSetor/>
-                            <CardSetor/>
-                            <CardSetor/>
-                            <CardSetor/>
-                            <CardSetor/>
-                            <CardSetor/>
-                            <CardSetor/>
-                            <CardSetor/>
-                            <CardSetor/>
-                            <CardSetor/>
-                            <CardSetor/>
-                            <CardSetor/>
-                            <CardSetor/>
-                            <CardSetor/>
-                            <CardSetor/>
-                            
                         </div>
                     </div>
                 </div>
