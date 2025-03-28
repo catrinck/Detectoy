@@ -20,7 +20,7 @@ class WebcamService:
     def _initialize_camera(self):
         """Inicializa a câmera se ainda não estiver inicializada"""
         if self.camera is None:
-            camera_indices = [5, 4, 3, 2, 1, 0]
+            camera_indices = [1, 0]
             
             for camera_index in camera_indices:
                 print(f"Tentando câmera com índice {camera_index}")

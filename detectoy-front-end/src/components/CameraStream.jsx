@@ -11,11 +11,11 @@ export default function CameraStream() {
     const startStream = async () => {
         try {
             // Usar porta 8080 conforme configurado no .env
-            await axios.get('http://127.0.0.1:8080/api/v1/webcam/start');
+            await axios.get('http://localhost:8080/api/v1/webcam/start');
             setIsStreaming(true);
             
-            if (streamRef.current) {
-                streamRef.current.src = 'http://127.0.0.1:8080/api/v1/webcam/stream';
+            if (setIsStreaming(true)) {  
+                streamRef.current.src = 'http://localhost:8080/api/v1/webcam/stream';
                 streamRef.current.onerror = () => {
                     setError('Erro ao carregar stream da câmera');
                     setIsStreaming(false);
@@ -34,7 +34,7 @@ export default function CameraStream() {
 
     const stopStream = async () => {
         try {
-            await axios.get('http://127.0.0.1:8080/api/v1/webcam/stop');
+            await axios.get('http://localhost:8080/api/v1/webcam/stop');
             setIsStreaming(false);
             if (streamRef.current) {
                 streamRef.current.src = '';
@@ -47,7 +47,7 @@ export default function CameraStream() {
 
     const captureFrame = async () => {
         try {
-            const response = await axios.get('http://127.0.0.1:8080/api/v1/webcam/frame');
+            const response = await axios.get('http://localhost:8080/api/v1/webcam/frame');
             const data = response.data;
             if (data.result_image) {
                 setCapturedFrame(data);
