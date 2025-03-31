@@ -10,7 +10,7 @@ export default function WebcamDetector() {
     const startCamera = async () => {
         try {
             setError(null);
-            const response = await fetch('http://localhost:8000/api/v1/webcam/start');
+            const response = await fetch('http://localhost:8080/api/v1/webcam/start');
             if (!response.ok) {
                 const errorData = await response.json();
                 throw new Error(errorData.detail || 'Falha ao iniciar câmera');
@@ -27,7 +27,7 @@ export default function WebcamDetector() {
     const stopCamera = async () => {
         try {
             setError(null);
-            const response = await fetch('http://localhost:8000/api/v1/webcam/stop');
+            const response = await fetch('http://localhost:8080/api/v1/webcam/stop');
             if (!response.ok) {
                 const errorData = await response.json();
                 throw new Error(errorData.detail || 'Falha ao parar câmera');
@@ -45,7 +45,7 @@ export default function WebcamDetector() {
     const captureFrame = async () => {
         try {
             setError(null);
-            const response = await fetch('http://localhost:8000/api/v1/webcam/frame');
+            const response = await fetch('http://localhost:8080/api/v1/webcam/frame');
             if (!response.ok) {
                 const errorData = await response.json();
                 throw new Error(errorData.detail || 'Falha ao capturar frame');
@@ -132,7 +132,7 @@ export default function WebcamDetector() {
                         <div key={index} className="mb-4 p-2 border rounded">
                             <p className="text-sm mb-1">{detection.timestamp}</p>
                             <img 
-                                src={`http://localhost:8000${detection.image}`}
+                                src={`http://localhost:8080${detection.image}`}
                                 alt="Detection"
                                 className="w-full rounded"
                             />
